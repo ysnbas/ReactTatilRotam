@@ -28,7 +28,9 @@ export default class SelectCity extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.CityTxt}>Etkinlik Çarkını Hangi Şehir İçin Çevirmek İstersiniz?</Text>
+        <Text style={styles.CityTxt}>
+          Etkinlik Çarkını Hangi Şehir İçin Çevirmek İstersiniz?
+        </Text>
         <FlatList
           data={[
             {key: 'İstanbul'},
@@ -112,8 +114,6 @@ export default class SelectCity extends Component {
             {key: 'Yalova'},
             {key: 'Yozgat'},
             {key: 'Zonguldak'},
-            
-            
           ]}
           renderItem={({item}) => (
             <Text
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFEB3B',
     flex: 1,
   },
-  CityTxt:{
+  CityTxt: {
     backgroundColor: '#fff',
     marginHorizontal: 40,
     marginVertical: 40,
@@ -147,4 +147,3 @@ const styles = StyleSheet.create({
     height: 44,
   },
 });
-

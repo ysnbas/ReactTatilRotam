@@ -1,12 +1,20 @@
 import React, {Component} from 'react';
 import Input from '../components/input';
-import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from 'react-native';
 
-export default class ForgotPass extends Component {
+export default class ForgotPassAct extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={styles.ButtonBir}
+        <TouchableOpacity
+          style={styles.ButtonBir}
           onPress={() => this.props.navigation.navigate('Login')}>
           <Image
             style={styles.IconImage}
@@ -14,15 +22,27 @@ export default class ForgotPass extends Component {
         </TouchableOpacity>
         <Text style={styles.HeadText}>Tatil Rotam</Text>
         <Text style={styles.LgnArea}>
-          Şifre Değişikliği İçin Size Gönderdiğimiz Link'e Tıklayınız.
+          Şifre Değişikliği İçin Size Gönderdiğimiz Kodu Giriniz.
         </Text>
         <View style={styles.LgnArea}>
-          <Input placeholder="Kullanıcı Adı" autoCapitalize="none" />
           <Input placeholder="E-Mail" autoCapitalize="none" />
           <TouchableOpacity
             style={styles.button}
-            onPress={() => alert('E-Posta Başarıyla Gönderildi.')}>
+            onPress={() => Alert.alert('E-Posta Başarıyla Gönderildi.')}>
             <Text style={styles.Btn1}>Gönder</Text>
+          </TouchableOpacity>
+          <Input placeholder="Doğrulama Kodu" autoCapitalize="none" />
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() =>
+              Alert.alert('Doğrulandı.', 'Başarıyla Doğrulandı.', [
+                {
+                  text: 'Ok',
+                  onPress: () => this.props.navigation.navigate('ForgotPass'),
+                },
+              ])
+            }>
+            <Text style={styles.Btn1}>Doğrula</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -37,9 +57,9 @@ const styles = StyleSheet.create({
     paddingVertical: 100,
     justifyContent: 'center',
   },
-  ButtonBir:{
-    position:'absolute',
-    top:65
+  ButtonBir: {
+    position: 'absolute',
+    top: 65,
   },
   IconImage: {
     width: 35,

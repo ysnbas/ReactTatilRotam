@@ -1,34 +1,35 @@
 import React, {Component} from 'react';
+import Input from '../components/input';
 import {
+  View,
   StyleSheet,
   Text,
-  View,
-  KeyboardAvoidingView,
   TouchableOpacity,
   Image,
+  StatusBar,
 } from 'react-native';
-import RegisterForm from './RegisterForm';
-import {ScrollView} from 'react-native-gesture-handler';
 
-export default class Register extends Component {
+export default class ForgotPass extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <KeyboardAvoidingView>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Login')}>
-            <Image
-              style={styles.IconImage}
-              source={require('../../img/icon.png')}></Image>
+        <TouchableOpacity
+          style={styles.ButtonBir}
+          onPress={() => this.props.navigation.navigate('Login')}>
+          <Image
+            style={styles.IconImage}
+            source={require('../../img/icon.png')}></Image>
+        </TouchableOpacity>
+        <Text style={styles.HeadText}>Tatil Rotam</Text>
+        <Text style={styles.LgnArea}>Yeni Şifrenizi Belirleyebilirsiniz.</Text>
+        <View style={styles.LgnArea}>
+          <Input placeholder="Şifre" autoCapitalize="none" />
+          <Input placeholder="Şifre Tekrar" autoCapitalize="none" />
+
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.Btn1}>Kaydet</Text>
           </TouchableOpacity>
-          <Text style={styles.HeadText}>Tatil Rotam</Text>
-          <View style={styles.LgnArea}>
-            <RegisterForm></RegisterForm>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.Btn1}>Kaydet</Text>
-            </TouchableOpacity>
-          </View>
-        </KeyboardAvoidingView>
+        </View>
       </View>
     );
   }
@@ -40,6 +41,15 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 100,
     justifyContent: 'center',
+  },
+  ButtonBir: {
+    position: 'absolute',
+    top: 65,
+  },
+  IconImage: {
+    width: 35,
+    height: 25,
+    marginHorizontal: 10,
   },
   button: {
     paddingVertical: 10,
@@ -54,11 +64,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     letterSpacing: 1,
   },
-  IconImage: {
-    width: 35,
-    height: 25,
-    marginHorizontal: 10,
-  },
   HeadText: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -67,10 +72,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   LgnArea: {
-    marginTop: 50,
+    marginTop: 20,
     backgroundColor: '#fff',
     marginHorizontal: 40,
-    marginVertical: 40,
+    marginVertical: 25,
     padding: 20,
     borderRadius: 5,
 

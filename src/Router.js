@@ -6,6 +6,7 @@ import Login from '../src/pages/Login';
 import Register from '../src/pages/Register';
 import RotaVeyaRehber from '../src/pages/RotaVeyaRehber';
 import ForgotPassAct from '../src/pages/ForgotPassAct';
+import ForgotPass from '../src/pages/ForgotPass';
 import WhellCity from '../src/pages/WhellCity';
 import SelectCity from '../src/pages/SelectCity';
 import {createAppContainer} from 'react-navigation';
@@ -48,6 +49,13 @@ const AppNavigator = createStackNavigator(
     },
     ForgotPassAct: {
       screen: ForgotPassAct,
+      navigationOptions: {
+        headerShown: false,
+        headerLeft: null,
+      },
+    },
+    ForgotPass: {
+      screen: ForgotPass,
       navigationOptions: {
         headerShown: false,
         headerLeft: null,

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, StatusBar} from 'react-native';
 
 export default class SplashScreen extends Component {
   constructor(props) {
@@ -15,6 +15,11 @@ export default class SplashScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <StatusBar
+          barStyle="dark-content"
+          translucent
+          backgroundColor="transparent"></StatusBar>
+
         <Image
           style={styles.IconImage}
           source={require('../../img/family-car.png')}

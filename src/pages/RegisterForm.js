@@ -1,56 +1,59 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import Input from '../components/input';
 
 export default class RegisterForm extends Component {
   render() {
     return (
-      <View>
-        <Text style={styles.FormName}>Giriş</Text>
+      <ScrollView>
+        <View>
+          <Text style={styles.FormName}>Giriş</Text>
 
-        <Input
-          placeholder="İsim"
-          ReturnKeyType={'next'}
-          onSubmitEditing={() => this.SurnameInput.focus()}
-        />
-        <Input
-          placeholder="Soyisim"
-          ReturnKeyType={'next'}
-          inputRef={input => (this.SurnameInput = input)}
-          onSubmitEditing={() => this.UsernameInput.focus()}
-        />
-        <Input
-          placeholder="Kullanıcı Adı"
-          autoCapitalize="none"
-          ReturnKeyType={'next'}
-          inputRef={input => (this.UsernameInput = input)}
-          onSubmitEditing={() => this.passwordInput.focus()}
-        />
+          <Input
+            placeholder="İsim"
+            ReturnKeyType={'next'}
+            onSubmitEditing={() => this.SurnameInput.focus()}
+          />
 
-        <Input
-          placeholder="Şifre"
-          autoCapitalize="none"
-          secureTextEntry={true}
-          inputRef={input => (this.passwordInput = input)}
-          onSubmitEditing={() => this.passwordAgainInput.focus()}
-          ReturnKeyType={'next'}
-        />
-        <Input
-          placeholder="Şifre Tekrar"
-          autoCapitalize="none"
-          secureTextEntry={true}
-          inputRef={input => (this.passwordAgainInput = input)}
-          onSubmitEditing={() => this.emailInput.focus()}
-          ReturnKeyType={'next'}
-        />
-        <Input
-          placeholder="Email"
-          autoCapitalize="none"
-          ReturnKeyType={'go'}
-          inputRef={input => (this.emailInput = input)}
-        />
-        
-      </View>
+          <Input
+            placeholder="Soyisim"
+            ReturnKeyType={'next'}
+            inputRef={input => (this.SurnameInput = input)}
+            onSubmitEditing={() => this.UsernameInput.focus()}
+          />
+          <Input
+            placeholder="Kullanıcı Adı"
+            autoCapitalize="none"
+            ReturnKeyType={'next'}
+            inputRef={input => (this.UsernameInput = input)}
+            onSubmitEditing={() => this.passwordInput.focus()}
+          />
+
+          <Input
+            placeholder="Şifre"
+            autoCapitalize="none"
+            secureTextEntry={true}
+            inputRef={input => (this.passwordInput = input)}
+            onSubmitEditing={() => this.passwordAgainInput.focus()}
+            ReturnKeyType={'next'}
+          />
+          <Input
+            placeholder="Şifre Tekrar"
+            autoCapitalize="none"
+            secureTextEntry={true}
+            inputRef={input => (this.passwordAgainInput = input)}
+            onSubmitEditing={() => this.emailInput.focus()}
+            ReturnKeyType={'next'}
+          />
+          <Input
+            placeholder="Email"
+            autoCapitalize="none"
+            keyboardType="email-address"
+            ReturnKeyType={'go'}
+            inputRef={input => (this.emailInput = input)}
+          />
+        </View>
+      </ScrollView>
     );
   }
 }
@@ -66,8 +69,8 @@ const styles = StyleSheet.create({
   },
   Btn1: {
     color: '#fff',
-    width:'100%',
-    textAlign:'center'
+    width: '100%',
+    textAlign: 'center',
   },
   FormName: {
     textAlign: 'center',

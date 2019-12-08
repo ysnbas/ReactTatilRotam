@@ -8,7 +8,6 @@ import {
   Image,
 } from 'react-native';
 import RegisterForm from './RegisterForm';
-import {ScrollView} from 'react-native-gesture-handler';
 
 export default class Register extends Component {
   render() {
@@ -24,9 +23,6 @@ export default class Register extends Component {
           <Text style={styles.HeadText}>Tatil Rotam</Text>
           <View style={styles.LgnArea}>
             <RegisterForm></RegisterForm>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.Btn1}>Kaydet</Text>
-            </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
       </View>
@@ -41,19 +37,7 @@ const styles = StyleSheet.create({
     paddingVertical: 100,
     justifyContent: 'center',
   },
-  button: {
-    paddingVertical: 10,
-    paddingHorizontal: 5,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginBottom: 8,
-    backgroundColor: '#720b98',
-  },
-  Btn1: {
-    color: '#fff',
-    fontSize: 15,
-    letterSpacing: 1,
-  },
+
   IconImage: {
     width: 35,
     height: 25,

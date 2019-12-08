@@ -73,11 +73,7 @@ export default class Login extends Component {
         <KeyboardAvoidingView behavior={'padding'}>
           <View style={styles.LgnArea}>
             <LoginForm />
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => this.props.navigation.navigate('RotaVeyaRehber')}>
-              <Text style={styles.Btn1}>Giriş</Text>
-            </TouchableOpacity>
+
             <CheckBox
               center
               title="Beni Hatırla"
@@ -94,12 +90,6 @@ export default class Login extends Component {
                 Hâlâ Kayıtlı Değilsen! Üye Ol
               </Text>
             </TouchableOpacity>
-
-            {/* <Button
-              title="Üye Ol"
-              color="black"
-              onPress={() => this.props.navigation.navigate('Register')}
-            /> */}
           </View>
         </KeyboardAvoidingView>
       </View>
@@ -120,6 +110,11 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     backgroundColor: '#720b98',
   },
+  Btn1: {
+    color: '#fff',
+    fontSize: 15,
+    letterSpacing: 1,
+  },
   RegisterTxt: {
     marginBottom: 8,
     fontSize: 15,
@@ -136,11 +131,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     color: '#039BE5',
   },
-  Btn1: {
-    color: '#fff',
-    fontSize: 15,
-    letterSpacing: 1,
-  },
+
   container: {
     backgroundColor: '#FFEB3B',
     flex: 1,

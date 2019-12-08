@@ -1,18 +1,83 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Keyboard,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import Input from '../components/input';
+import {withNavigation} from 'react-navigation';
 
-export default class RegisterForm extends Component {
+class RegisterForm extends Component {
+  AllFunc() {
+    this.myFun();
+  }
+  constructor(props) {
+    super(props);
+    this.state = {
+      fname: '',
+      lname: '',
+      uname: '',
+      password: '',
+      passwordtwo: '',
+      email: '',
+    };
+  }
+  myFun = () => {
+    const {fname, lname, uname, password, passwordtwo, email} = this.state;
+    if (fname == '') {
+      this.setState({Error: 'Lütfen İsminizi Yazınız.'});
+    } else if (lname == '') {
+      this.setState({Error: 'Lütfen Soy İsminizi Yazınız.'});
+    } else if (uname == '') {
+      this.setState({Error: 'Lütfen Kullanıcı Adınızı Girin.'});
+    } else if (password == '') {
+      this.setState({Error: 'Lütfen Şifrenizi Girin.'});
+    } else if (password.length < 5) {
+      this.setState({Error: 'Şifre En Az 5 Karakter Olmalı'});
+    } else if (passwordtwo == '') {
+      this.setState({Error: 'Lütfen Şifrenizi Girin.'});
+    } else if (password != passwordtwo) {
+      this.setState({Error: 'Şifreler Aynı Değil.'});
+    } else if (email == '') {
+      this.setState({Error: 'Lütfen Mail Adresinizi Yazınız.'});
+    } else {
+      Alert.alert(
+        'Kayıt',
+        'Başarılı Şekilde Kayıt Oldunuz.',
+        [
+          {
+            text: 'Tamam',
+            onPress: () => this.props.navigation.navigate('Login'),
+          },
+        ],
+        {
+          cancelable: false,
+        },
+      );
+      return true;
+    }
+
+    Keyboard.dismiss();
+  };
+
   render() {
     return (
       <ScrollView>
         <View>
+          <Text style={{color: 'red', textAlign: 'center'}}>
+            {this.state.Error}
+          </Text>
           <Text style={styles.FormName}>Giriş</Text>
 
           <Input
             placeholder="İsim"
             ReturnKeyType={'next'}
             onSubmitEditing={() => this.SurnameInput.focus()}
+            onChangeText={fname => this.setState({fname})}
           />
 
           <Input
@@ -20,6 +85,7 @@ export default class RegisterForm extends Component {
             ReturnKeyType={'next'}
             inputRef={input => (this.SurnameInput = input)}
             onSubmitEditing={() => this.UsernameInput.focus()}
+            onChangeText={lname => this.setState({lname})}
           />
           <Input
             placeholder="Kullanıcı Adı"
@@ -27,6 +93,7 @@ export default class RegisterForm extends Component {
             ReturnKeyType={'next'}
             inputRef={input => (this.UsernameInput = input)}
             onSubmitEditing={() => this.passwordInput.focus()}
+            onChangeText={uname => this.setState({uname})}
           />
 
           <Input
@@ -36,6 +103,7 @@ export default class RegisterForm extends Component {
             inputRef={input => (this.passwordInput = input)}
             onSubmitEditing={() => this.passwordAgainInput.focus()}
             ReturnKeyType={'next'}
+            onChangeText={password => this.setState({password})}
           />
           <Input
             placeholder="Şifre Tekrar"
@@ -44,6 +112,7 @@ export default class RegisterForm extends Component {
             inputRef={input => (this.passwordAgainInput = input)}
             onSubmitEditing={() => this.emailInput.focus()}
             ReturnKeyType={'next'}
+            onChangeText={passwordtwo => this.setState({passwordtwo})}
           />
           <Input
             placeholder="Email"
@@ -51,7 +120,13 @@ export default class RegisterForm extends Component {
             keyboardType="email-address"
             ReturnKeyType={'go'}
             inputRef={input => (this.emailInput = input)}
+            onChangeText={email => this.setState({email})}
           />
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => this.AllFunc()}>
+            <Text style={styles.Btn1}>Kaydet</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     );
@@ -65,7 +140,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     marginBottom: 8,
-    backgroundColor: 'black',
+    backgroundColor: '#720b98',
   },
   Btn1: {
     color: '#fff',
@@ -79,3 +154,4 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
 });
+export default withNavigation(RegisterForm);

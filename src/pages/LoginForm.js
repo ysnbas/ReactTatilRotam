@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Keyboard} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Keyboard,
+  ActivityIndicator,
+} from 'react-native';
 import Input from '../components/input';
 import {withNavigation} from 'react-navigation';
 
@@ -16,16 +23,13 @@ class LoginForm extends Component {
   }
   myFun = () => {
     const {uname, password} = this.state;
-    if (uname == '') {
-      //alert('please fill the first name');
+    if (uname.trim() == '') {
       this.setState({Error: 'Lütfen Kullanıcı Adınızı Girin.'});
     } else if (password == '') {
       this.setState({Error: 'Lütfen Şifrenizi Girin.'});
     } else if (password.length < 5) {
       this.setState({Error: 'Şifre En Az 5 Karakter Olmalı.'});
     } else {
-      //alert('thank you, your form is submitted successfully');
-
       this.props.navigation.navigate('RotaVeyaRehber');
     }
 

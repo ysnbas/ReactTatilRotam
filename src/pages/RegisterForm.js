@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import axios from 'react-native-axios';
+
 import {
   StyleSheet,
   Text,
@@ -10,11 +12,11 @@ import {
 } from 'react-native';
 import Input from '../components/input';
 import {withNavigation} from 'react-navigation';
-
 class RegisterForm extends Component {
   AllFunc() {
     this.myFun();
   }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -26,13 +28,14 @@ class RegisterForm extends Component {
       email: '',
     };
   }
+
   myFun = () => {
     const {fname, lname, uname, password, passwordtwo, email} = this.state;
     if (fname == '') {
       this.setState({Error: 'Lütfen İsminizi Yazınız.'});
     } else if (lname == '') {
       this.setState({Error: 'Lütfen Soy İsminizi Yazınız.'});
-    } else if (uname == '') {
+    } else if (uname.trim() == '') {
       this.setState({Error: 'Lütfen Kullanıcı Adınızı Girin.'});
     } else if (password == '') {
       this.setState({Error: 'Lütfen Şifrenizi Girin.'});
@@ -45,20 +48,37 @@ class RegisterForm extends Component {
     } else if (email == '') {
       this.setState({Error: 'Lütfen Mail Adresinizi Yazınız.'});
     } else {
-      Alert.alert(
-        'Kayıt',
-        'Başarılı Şekilde Kayıt Oldunuz.',
-        [
-          {
-            text: 'Tamam',
-            onPress: () => this.props.navigation.navigate('Login'),
-          },
-        ],
-        {
-          cancelable: false,
-        },
-      );
-      return true;
+      // Alert.alert(
+      //   'Kayıt',
+      //   'Başarılı Şekilde Kayıt Oldunuz.',
+      //   [
+      //     {
+      //       text: 'Tamam',
+      //       onPress: () => this.props.navigation.navigate('Login'),
+      //     },
+      //   ],
+      //   {
+      //     cancelable: false,
+      //   },
+      // );
+      // return true;
+      axios
+        .post('http://192.168.10.51:3000/users/new', {
+          isim: this.state.fname,
+          soyisim: this.state.lname,
+          kullaniciAdi: this.state.uname,
+          Sifre: this.state.password,
+          SifreTekrar: this.state.passwordtwo,
+          Email: this.state.email,
+        })
+        .then(function(response) {
+          if (response === 'kullaniciAdi') {
+            alert('hata');
+          }
+        })
+        .catch(function(error) {
+          reject('Servis bağlantı hatası !');
+        });
     }
 
     Keyboard.dismiss();
@@ -68,9 +88,14 @@ class RegisterForm extends Component {
     return (
       <ScrollView>
         <View>
-          <Text style={{color: 'red', textAlign: 'center'}}>
+          <Text
+            style={{
+              color: 'red',
+              textAlign: 'center',
+            }}>
             {this.state.Error}
           </Text>
+
           <Text style={styles.FormName}>Giriş</Text>
 
           <Input

@@ -118,7 +118,14 @@ export default class SelectCity extends Component {
           renderItem={({item}) => (
             <Text
               style={styles.item}
-              onPress={this.getListViewItem.bind(this, item)}>
+              onPress={() =>
+                Alert.alert('Doğrulandı.', 'Başarıyla Doğrulandı.', [
+                  {
+                    text: 'Ok',
+                    onPress: () => this.props.navigation.navigate('WhellCity'),
+                  },
+                ])
+              }>
               {item.key}
             </Text>
           )}

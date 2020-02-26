@@ -63,7 +63,7 @@ class RegisterForm extends Component {
       // );
       // return true;
       axios
-        .post('http://192.168.10.51:3000/users/new', {
+        .post('http://192.168.0.26:3000/users/new', {
           isim: this.state.fname,
           soyisim: this.state.lname,
           kullaniciAdi: this.state.uname,
@@ -76,7 +76,7 @@ class RegisterForm extends Component {
             alert('hata');
           }
         })
-        .catch(function(error) {
+        .catch(function() {
           reject('Servis bağlantı hatası !');
         });
     }

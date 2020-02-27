@@ -63,7 +63,7 @@ class RegisterForm extends Component {
       // );
       // return true;
       axios
-        .post('http://192.168.0.26:3000/users/new', {
+        .post('http://10.201.160.32:3000/users/new', {
           isim: this.state.fname,
           soyisim: this.state.lname,
           kullaniciAdi: this.state.uname,
@@ -72,8 +72,12 @@ class RegisterForm extends Component {
           Email: this.state.email,
         })
         .then(function(response) {
-          if (response === 'kullaniciAdi') {
-            alert('hata');
+          console.log(response.data.keyPattern.Email);
+          if (response.data.keyPattern.Email === 1) {
+            alert('Mail daha önce var');
+          }
+          if (response.data.keyPattern.kullaniciAdi === 1) {
+            alert('Kullanıcı adi daha önce var');
           }
         })
         .catch(function() {

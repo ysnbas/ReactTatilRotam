@@ -12,13 +12,19 @@ router.post('/new', function(req, res, next) {
     Email:req.body.Email
   })
   user.save((err,data)=>{
-    if(err)
-    console.log(err)
+    if(err){
+      console.log(err)
+      res.json(err);
+    }
+    
    
      res.json(data);
   })
   
+  
 
 });
-
+router.post('/girisK', function(req, res, next) {
+  res.send("aslşdkaslşd")
+})
 module.exports = router;

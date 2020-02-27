@@ -30,6 +30,17 @@ class LoginForm extends Component {
     } else if (password.length < 5) {
       this.setState({Error: 'Şifre En Az 5 Karakter Olmalı.'});
     } else {
+      axios
+        .post('http://10.201.160.32:3000/users/girisK', {
+          isim: this.state.uname,
+          soyisim: this.state.password,
+        })
+        .then(function(response) {
+          console.log(response.data);
+        })
+        .catch(function() {
+          reject('Servis bağlantı hatası !');
+        });
       this.props.navigation.navigate('RotaVeyaRehber');
     }
 

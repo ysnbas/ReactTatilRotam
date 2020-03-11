@@ -22,16 +22,17 @@ UsersSchema.pre('save', function(next) {
             if (err) return next(err);
 
             user.Sifre = hash;
+            user.SifreTekrar=hash;
             next();
         });
-        if (err) return next(err);
+        // if (err) return next(err);
 
-        bcrypt.hash(user.SifreTekrar, salt, function(err, hash) {
-            if (err) return next(err);
+        // bcrypt.hash(user.SifreTekrar, salt, function(err, hash) {
+        //     if (err) return next(err);
 
-            user.SifreTekrar = hash;
-            next();
-        });
+        //     user.SifreTekrar = hash;
+        //     next();
+        // });
     });
 });
 UsersSchema.methods.comparePassword = function(candidatePassword, cb) {

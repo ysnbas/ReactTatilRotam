@@ -1,17 +1,29 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class RotaVeyaRehber extends Component {
+  submit = async () => {
+    try {
+      await AsyncStorage.clear();
+      this.props.navigation.navigate('Login');
+    } catch (error) {}
+
+    Keyboard.dismiss();
+  };
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.HeadText}>Tatil Rotam</Text>
         <View style={styles.RehberYaziArea}>
           <Text style={styles.RehberYaziBtn}>
-            Çark kısmında çevireceğiniz çark'a göre kendinize bir plan yapabilirsiniz.
+            Çark kısmında çevireceğiniz çark'a göre kendinize bir plan
+            yapabilirsiniz.
           </Text>
         </View>
-        <TouchableOpacity style={styles.RehberBtn} onPress={() => this.props.navigation.navigate('SelectCity')}>
+        <TouchableOpacity
+          style={styles.RehberBtn}
+          onPress={() => this.props.navigation.navigate('SelectCity')}>
           <Text style={styles.Btn1}>Çark</Text>
         </TouchableOpacity>
         <View style={styles.RehberYaziArea}>
@@ -31,6 +43,9 @@ export default class RotaVeyaRehber extends Component {
         </View>
         <TouchableOpacity style={styles.RehberBtn}>
           <Text style={styles.Btn1}>Rota</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.RehberBtn} onPress={this.submit}>
+          <Text style={styles.Btn1}>çıkış</Text>
         </TouchableOpacity>
       </View>
     );
@@ -58,7 +73,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#720b98',
   },
-  
+
   RehberYaziArea: {
     backgroundColor: '#fff',
     marginHorizontal: 40,
@@ -80,5 +95,4 @@ const styles = StyleSheet.create({
     fontSize: 15,
     letterSpacing: 1,
   },
-  
 });

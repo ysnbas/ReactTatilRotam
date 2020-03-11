@@ -1,28 +1,51 @@
 import React, {Component} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Keyboard,
-  ActivityIndicator,
-} from 'react-native';
+import axios from 'react-native-axios';
+import loginAPI from '../../service/loginAPI';
+import {StyleSheet, Text, View, TouchableOpacity, Keyboard} from 'react-native';
 import Input from '../components/input';
 import {withNavigation} from 'react-navigation';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class LoginForm extends Component {
-  AllFunc() {
-    this.myFun();
-  }
+  // AllFunc() {
+  //   this.myFun();
+  // }
+
   constructor(props) {
     super(props);
     this.state = {
       uname: '',
       password: '',
+      isLogin: false,
     };
+    this.submit = this.submit.bind(this);
   }
-  myFun = () => {
+  componentDidMount() {
+    this.readStore();
+  }
+  readStore = async () => {
+    try {
+      const uname = await AsyncStorage.getItem('userName');
+      const password = await AsyncStorage.getItem('password');
+      alert(uname);
+      if (uname !== null && password !== null) {
+        this.setState({uname: uname, password: password}, () => {
+          this.props.navigation.navigate('RotaVeyaRehber');
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  submit = async () => {
     const {uname, password} = this.state;
+
+    try {
+      await AsyncStorage.setItem('uname', this.state.uname);
+    } catch (e) {
+      console.log('AsyncStorage', error);
+    }
     if (uname.trim() == '') {
       this.setState({Error: 'Lütfen Kullanıcı Adınızı Girin.'});
     } else if (password == '') {
@@ -30,18 +53,30 @@ class LoginForm extends Component {
     } else if (password.length < 5) {
       this.setState({Error: 'Şifre En Az 5 Karakter Olmalı.'});
     } else {
-      axios
-        .post('http://10.201.160.32:3000/users/girisK', {
-          isim: this.state.uname,
-          soyisim: this.state.password,
-        })
-        .then(function(response) {
-          console.log(response.data);
-        })
-        .catch(function() {
-          reject('Servis bağlantı hatası !');
-        });
-      this.props.navigation.navigate('RotaVeyaRehber');
+      {
+        try {
+          await AsyncStorage.setItem('uname', this.state.uname);
+        } catch (error) {
+          console.log('AsyncStorage', error);
+        }
+        var toJSON =
+          "{'uname': '" +
+          this.state.uname +
+          "', 'password': '" +
+          this.state.password +
+          "'}";
+        var body = eval('(' + toJSON + ')');
+
+        try {
+          await loginAPI(body);
+          AsyncStorage.setItem('userName', this.state.uname);
+          AsyncStorage.setItem('password', this.state.password);
+          this.props.navigation.navigate('RotaVeyaRehber');
+        } catch (error) {
+          // this.props.navigation.navigate('RotaVeyaRehber');
+          alert(error);
+        }
+      }
     }
 
     Keyboard.dismiss();
@@ -54,7 +89,7 @@ class LoginForm extends Component {
         <Text style={{color: 'red', textAlign: 'center'}}>
           {this.state.Error}
         </Text>
-        <Text style={styles.FormName}>Giriş</Text>
+        <Text style={styles.FormName}>{this.state.isLogin}</Text>
 
         <Input
           placeholder="Kullanıcı Adı"
@@ -72,7 +107,7 @@ class LoginForm extends Component {
           ReturnKeyType={'go'}
           onChangeText={password => this.setState({password})}
         />
-        <TouchableOpacity style={styles.button} onPress={() => this.AllFunc()}>
+        <TouchableOpacity style={styles.button} onPress={this.submit}>
           <Text style={styles.Btn1}>Giriş</Text>
         </TouchableOpacity>
       </View>

@@ -15,16 +15,32 @@ router.post('/new', function(req, res, next) {
     if(err){
       console.log(err)
       res.json(err);
+
     }
-    
-   
      res.json(data);
   })
-  
-  
 
 });
 router.post('/girisK', function(req, res, next) {
-  res.send("aslşdkaslşd")
+  const userlogincontrol=UsersSchema.find({
+    
+    kullaniciAdi:req.body.kullaniciAdi,
+    Sifre:req.body.Sifre,
+    
+  }).count();
+  userlogincontrol
+    .then(data => {
+      console.log(data);
+      if (data > 0) {
+        return res.json({
+          status: true
+        });
+      } else {
+        return res.json({
+          status: false
+        });
+      }
+    })
+  
 })
 module.exports = router;

@@ -22,27 +22,14 @@ export default class ForgotPassAct extends Component {
         </TouchableOpacity>
         <Text style={styles.HeadText}>Tatil Rotam</Text>
         <Text style={styles.LgnArea}>
-          Şifre Değişikliği İçin Size Gönderdiğimiz Kodu Giriniz.
+          Şifre Değişikliği İçin Size Gönderdiğimiz Bağlantıya Tıklayınız.
         </Text>
         <View style={styles.LgnArea}>
           <Input placeholder="E-Mail" autoCapitalize="none" />
           <TouchableOpacity
             style={styles.button}
-            onPress={() => Alert.alert('E-Posta Başarıyla Gönderildi.')}>
+            onPress={() => this.sendClick()}>
             <Text style={styles.Btn1}>Gönder</Text>
-          </TouchableOpacity>
-          <Input placeholder="Doğrulama Kodu" autoCapitalize="none" />
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() =>
-              Alert.alert('Doğrulandı.', 'Başarıyla Doğrulandı.', [
-                {
-                  text: 'Ok',
-                  onPress: () => this.props.navigation.navigate('ForgotPass'),
-                },
-              ])
-            }>
-            <Text style={styles.Btn1}>Doğrula</Text>
           </TouchableOpacity>
         </View>
       </View>

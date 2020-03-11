@@ -12,11 +12,9 @@ import {
 } from 'react-native';
 import Input from '../components/input';
 import {withNavigation} from 'react-navigation';
-class RegisterForm extends Component {
-  AllFunc() {
-    this.myFun();
-  }
+import registerAPI from '../../service/registerAPI';
 
+class RegisterForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,9 +25,10 @@ class RegisterForm extends Component {
       passwordtwo: '',
       email: '',
     };
+    this.submit = this.submit.bind(this);
   }
 
-  myFun = () => {
+  submit = async () => {
     const {fname, lname, uname, password, passwordtwo, email} = this.state;
     if (fname == '') {
       this.setState({Error: 'Lütfen İsminizi Yazınız.'});
@@ -62,29 +61,30 @@ class RegisterForm extends Component {
       //   },
       // );
       // return true;
-      axios
-        .post('http://10.201.160.32:3000/users/new', {
-          isim: this.state.fname,
-          soyisim: this.state.lname,
-          kullaniciAdi: this.state.uname,
-          Sifre: this.state.password,
-          SifreTekrar: this.state.passwordtwo,
-          Email: this.state.email,
-        })
-        .then(function(response) {
-          console.log(response.data.keyPattern.Email);
-          if (response.data.keyPattern.Email === 1) {
-            alert('Mail daha önce var');
-          }
-          if (response.data.keyPattern.kullaniciAdi === 1) {
-            alert('Kullanıcı adi daha önce var');
-          }
-        })
-        .catch(function() {
-          reject('Servis bağlantı hatası !');
-        });
-    }
+      {
+        var toJSON =
+          "{'fname': '" +
+          this.state.fname +
+          "', 'lname': '" +
+          this.state.lname +
+          "','uname':'" +
+          this.state.uname +
+          "','password':'" +
+          this.state.password +
+          "','passwordtwo':'" +
+          this.state.passwordtwo +
+          "','email':'" +
+          this.state.email +
+          "'}";
+        var body = eval('(' + toJSON + ')');
 
+        try {
+          await registerAPI(body);
+        } catch (error) {
+          this.props.navigation.navigate('Login');
+        }
+      }
+    }
     Keyboard.dismiss();
   };
 
@@ -151,9 +151,7 @@ class RegisterForm extends Component {
             inputRef={input => (this.emailInput = input)}
             onChangeText={email => this.setState({email})}
           />
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.AllFunc()}>
+          <TouchableOpacity style={styles.button} onPress={this.submit}>
             <Text style={styles.Btn1}>Kaydet</Text>
           </TouchableOpacity>
         </View>

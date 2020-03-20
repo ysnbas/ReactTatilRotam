@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import {API_ENDPOINT, API_KEY} from '../../../constants';
 import axios from 'axios';
 import Geolocation from '@react-native-community/geolocation';
+import PlacesIndex from '../places/placesIndex';
 
 export default class Index extends Component {
   state = {
@@ -15,6 +16,7 @@ export default class Index extends Component {
       longitudeDelta: 0.0421,
     },
     places: [],
+    fetching: false,
   };
   async componentDidMount() {
     try {
@@ -34,7 +36,7 @@ export default class Index extends Component {
       const {
         data: {results},
       } = await axios.get(
-        `${API_ENDPOINT}location=${latitude},${longitude}&radius=5000&type=restaurant&key=${API_KEY}`,
+        `${API_ENDPOINT}/nearbysearch/json?location=${latitude},${longitude}&radius=5000&type=restaurant&key=${API_KEY}`,
       );
       this.setState({
         places: results,
@@ -72,7 +74,8 @@ export default class Index extends Component {
           loadingEnabled={true}
           showsUserLocation={true}
           style={styles.map}
-          region={this.state.region}>
+          region={this.state.region}
+          ref={ref => (this.map = ref)}>
           {this.state.places.map(places => {
             const {
               geometry: {
@@ -90,6 +93,12 @@ export default class Index extends Component {
             );
           })}
         </MapView>
+        <View style={styles.placesContainer}>
+          {/* {
+            this.state.fetching ? <Text style={styles.loading}>yükleniyor...</Text>
+          } */}
+          <PlacesIndex places={this.state.places} map={this.map} />
+        </View>
       </View>
     );
   }
@@ -102,5 +111,11 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
+  },
+  placesContainer: {
+    position: 'absolute',
+    left: 0,
+    bottom: 0,
+    width: '100%',
   },
 });

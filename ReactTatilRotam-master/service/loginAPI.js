@@ -3,7 +3,7 @@ import axios from 'react-native-axios';
 const loginAPI = user => {
   return new Promise((resolve, reject) => {
     axios
-      .post('http://192.168.1.28:3000/users/girisK', {
+      .post('http://192.168.0.26:3000/users/girisK', {
         kullaniciAdi: user.uname,
         Sifre: user.password,
       })

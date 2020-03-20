@@ -27,7 +27,7 @@ class LoginForm extends Component {
     try {
       const uname = await AsyncStorage.getItem('userName');
       const password = await AsyncStorage.getItem('password');
-      alert(uname);
+
       if (uname !== null && password !== null) {
         this.setState({uname: uname, password: password}, () => {
           this.props.navigation.navigate('RotaVeyaRehber');

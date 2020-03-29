@@ -116,16 +116,7 @@ export default class SelectCity extends Component {
             {key: 'Zonguldak'},
           ]}
           renderItem={({item}) => (
-            <Text
-              style={styles.item}
-              onPress={() =>
-                Alert.alert('Doğrulandı.', 'Başarıyla Doğrulandı.', [
-                  {
-                    text: 'Ok',
-                    onPress: () => this.props.navigation.navigate('WhellCity'),
-                  },
-                ])
-              }>
+            <Text style={styles.item} onPress={() => alert(item.key)}>
               {item.key}
             </Text>
           )}

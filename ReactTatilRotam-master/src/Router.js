@@ -10,8 +10,10 @@ import ForgotPass from '../src/pages/ForgotPass';
 import WhellCity from '../src/pages/WhellCity';
 import Map from '../src/pages/Map';
 import SelectCity from '../src/pages/SelectCity';
+import RotaEkleme from '../src/pages/RotaEkleme';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
+import Ehue from '../src/pages/Ehue';
 
 const {width, height} = Dimensions.get('window');
 
@@ -79,6 +81,20 @@ const AppNavigator = createStackNavigator(
     },
     Map: {
       screen: Map,
+      navigationOptions: {
+        headerShown: false,
+        headerLeft: null,
+      },
+    },
+    RotaEkleme: {
+      screen: RotaEkleme,
+      navigationOptions: {
+        headerShown: false,
+        headerLeft: null,
+      },
+    },
+    Ehue: {
+      screen: Ehue,
       navigationOptions: {
         headerShown: false,
         headerLeft: null,

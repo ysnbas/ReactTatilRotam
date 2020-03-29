@@ -1,0 +1,328 @@
+{
+  "iller": [
+    {
+      "sehirPlaka": 1,
+      "sehirAdi": "Adana"
+    },
+    {
+      "sehirPlaka": 2,
+      "sehirAdi": "Adıyaman"
+    },
+    {
+      "sehirPlaka": 3,
+      "sehirAdi": "Afyonkarahisar"
+    },
+    {
+      "sehirPlaka": 4,
+      "sehirAdi": "Ağrı"
+    },
+    {
+      "sehirPlaka": 5,
+      "sehirAdi": "Amasya"
+    },
+    {
+      "sehirPlaka": 6,
+      "sehirAdi": "Ankara"
+    },
+    {
+      "sehirPlaka": 7,
+      "sehirAdi": "Antalya"
+    },
+    {
+      "sehirPlaka": 8,
+      "sehirAdi": "Artvin"
+    },
+    {
+      "sehirPlaka": 9,
+      "sehirAdi": "Aydın"
+    },
+    {
+      "sehirPlaka": 10,
+      "sehirAdi": "Balıkesir"
+    },
+    {
+      "sehirPlaka": 11,
+      "sehirAdi": "Bilecik"
+    },
+    {
+      "sehirPlaka": 12,
+      "sehirAdi": "Bingöl"
+    },
+    {
+      "sehirPlaka": 13,
+      "sehirAdi": "Bitlis"
+    },
+    {
+      "sehirPlaka": 14,
+      "sehirAdi": "Bolu"
+    },
+    {
+      "sehirPlaka": 15,
+      "sehirAdi": "Burdur"
+    },
+    {
+      "sehirPlaka": 16,
+      "sehirAdi": "Bursa"
+    },
+    {
+      "sehirPlaka": 17,
+      "sehirAdi": "Çanakkale"
+    },
+    {
+      "sehirPlaka": 18,
+      "sehirAdi": "Çankırı"
+    },
+    {
+      "sehirPlaka": 19,
+      "sehirAdi": "Çorum"
+    },
+    {
+      "sehirPlaka": 20,
+      "sehirAdi": "Denizli"
+    },
+    {
+      "sehirPlaka": 21,
+      "sehirAdi": "Diyarbakır"
+    },
+    {
+      "sehirPlaka": 22,
+      "sehirAdi": "Edirne"
+    },
+    {
+      "sehirPlaka": 23,
+      "sehirAdi": "Elâzığ"
+    },
+    {
+      "sehirPlaka": 24,
+      "sehirAdi": "Erzincan"
+    },
+    {
+      "sehirPlaka": 25,
+      "sehirAdi": "Erzurum"
+    },
+    {
+      "sehirPlaka": 26,
+      "sehirAdi": "Eskişehir"
+    },
+    {
+      "sehirPlaka": 27,
+      "sehirAdi": "Gaziantep"
+    },
+    {
+      "sehirPlaka": 28,
+      "sehirAdi": "Giresun"
+    },
+    {
+      "sehirPlaka": 29,
+      "sehirAdi": "Gümüşhane"
+    },
+    {
+      "sehirPlaka": 30,
+      "sehirAdi": "Hakkâri"
+    },
+    {
+      "sehirPlaka": 31,
+      "sehirAdi": "Hatay"
+    },
+    {
+      "sehirPlaka": 32,
+      "sehirAdi": "Isparta"
+    },
+    {
+      "sehirPlaka": 33,
+      "sehirAdi": "Mersin"
+    },
+    {
+      "sehirPlaka": 34,
+      "sehirAdi": "İstanbul"
+    },
+    {
+      "sehirPlaka": 35,
+      "sehirAdi": "İzmir"
+    },
+    {
+      "sehirPlaka": 36,
+      "sehirAdi": "Kars"
+    },
+    {
+      "sehirPlaka": 37,
+      "sehirAdi": "Kastamonu"
+    },
+    {
+      "sehirPlaka": 38,
+      "sehirAdi": "Kayseri"
+    },
+    {
+      "sehirPlaka": 39,
+      "sehirAdi": "Kırklareli"
+    },
+    {
+      "sehirPlaka": 40,
+      "sehirAdi": "Kırşehir"
+    },
+    {
+      "sehirPlaka": 41,
+      "sehirAdi": "Kocaeli"
+    },
+    {
+      "sehirPlaka": 42,
+      "sehirAdi": "Konya"
+    },
+    {
+      "sehirPlaka": 43,
+      "sehirAdi": "Kütahya"
+    },
+    {
+      "sehirPlaka": 44,
+      "sehirAdi": "Malatya"
+    },
+    {
+      "sehirPlaka": 45,
+      "sehirAdi": "Manisa"
+    },
+    {
+      "sehirPlaka": 46,
+      "sehirAdi": "Kahramanmaraş"
+    },
+    {
+      "sehirPlaka": 47,
+      "sehirAdi": "Mardin"
+    },
+    {
+      "sehirPlaka": 48,
+      "sehirAdi": "Muğla"
+    },
+    {
+      "sehirPlaka": 49,
+      "sehirAdi": "Muş"
+    },
+    {
+      "sehirPlaka": 50,
+      "sehirAdi": "Nevşehir"
+    },
+    {
+      "sehirPlaka": 51,
+      "sehirAdi": "Niğde"
+    },
+    {
+      "sehirPlaka": 52,
+      "sehirAdi": "Ordu"
+    },
+    {
+      "sehirPlaka": 53,
+      "sehirAdi": "Rize"
+    },
+    {
+      "sehirPlaka": 54,
+      "sehirAdi": "Sakarya"
+    },
+    {
+      "sehirPlaka": 55,
+      "sehirAdi": "Samsun"
+    },
+    {
+      "sehirPlaka": 56,
+      "sehirAdi": "Siirt"
+    },
+    {
+      "sehirPlaka": 57,
+      "sehirAdi": "Sinop"
+    },
+    {
+      "sehirPlaka": 58,
+      "sehirAdi": "Sivas"
+    },
+    {
+      "sehirPlaka": 59,
+      "sehirAdi": "Tekirdağ"
+    },
+    {
+      "sehirPlaka": 60,
+      "sehirAdi": "Tokat"
+    },
+    {
+      "sehirPlaka": 61,
+      "sehirAdi": "Trabzon"
+    },
+    {
+      "sehirPlaka": 62,
+      "sehirAdi": "Tunceli"
+    },
+    {
+      "sehirPlaka": 63,
+      "sehirAdi": "Şanlıurfa"
+    },
+    {
+      "sehirPlaka": 64,
+      "sehirAdi": "Uşak"
+    },
+    {
+      "sehirPlaka": 65,
+      "sehirAdi": "Van"
+    },
+    {
+      "sehirPlaka": 66,
+      "sehirAdi": "Yozgat"
+    },
+    {
+      "sehirPlaka": 67,
+      "sehirAdi": "Zonguldak"
+    },
+    {
+      "sehirPlaka": 68,
+      "sehirAdi": "Aksaray"
+    },
+    {
+      "sehirPlaka": 69,
+      "sehirAdi": "Bayburt"
+    },
+    {
+      "sehirPlaka": 70,
+      "sehirAdi": "Karaman"
+    },
+    {
+      "sehirPlaka": 71,
+      "sehirAdi": "Kırıkkale"
+    },
+    {
+      "sehirPlaka": 72,
+      "sehirAdi": "Batman"
+    },
+    {
+      "sehirPlaka": 73,
+      "sehirAdi": "Şırnak"
+    },
+    {
+      "sehirPlaka": 74,
+      "sehirAdi": "Bartın"
+    },
+    {
+      "sehirPlaka": 75,
+      "sehirAdi": "Ardahan"
+    },
+    {
+      "sehirPlaka": 76,
+      "sehirAdi": "Iğdır"
+    },
+    {
+      "sehirPlaka": 77,
+      "sehirAdi": "Yalova"
+    },
+    {
+      "sehirPlaka": 78,
+      "sehirAdi": "Karabük"
+    },
+    {
+      "sehirPlaka": 79,
+      "sehirAdi": "Kilis"
+    },
+    {
+      "sehirPlaka": 80,
+      "sehirAdi": "Osmaniye"
+    },
+    {
+      "sehirPlaka": 81,
+      "sehirAdi": "Düzce"
+    }
+  ]
+}

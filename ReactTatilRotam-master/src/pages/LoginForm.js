@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import axios from 'react-native-axios';
 import loginAPI from '../../service/loginAPI';
 import {StyleSheet, Text, View, TouchableOpacity, Keyboard} from 'react-native';
 import Input from '../components/input';
@@ -16,6 +15,7 @@ class LoginForm extends Component {
     this.state = {
       uname: '',
       password: '',
+      uyeturu: '',
       isLogin: false,
     };
     this.submit = this.submit.bind(this);
@@ -27,11 +27,14 @@ class LoginForm extends Component {
     try {
       const uname = await AsyncStorage.getItem('userName');
       const password = await AsyncStorage.getItem('password');
-
+      const uyeturu = await AsyncStorage.getItem('uyeturu');
       if (uname !== null && password !== null) {
-        this.setState({uname: uname, password: password}, () => {
-          this.props.navigation.navigate('RotaVeyaRehber');
-        });
+        this.setState(
+          {uname: uname, password: password, uyeturu: uyeturu},
+          () => {
+            this.props.navigation.navigate('RotaEkleme');
+          },
+        );
       }
     } catch (e) {
       console.log(e);
@@ -39,10 +42,11 @@ class LoginForm extends Component {
   };
 
   submit = async () => {
-    const {uname, password} = this.state;
+    const {uname, password, uyeturu} = this.state;
 
     try {
       await AsyncStorage.setItem('uname', this.state.uname);
+      await AsyncStorage.setItem('uyeturu', this.state.uyeturu);
     } catch (e) {
       console.log('AsyncStorage', error);
     }
@@ -56,6 +60,7 @@ class LoginForm extends Component {
       {
         try {
           await AsyncStorage.setItem('uname', this.state.uname);
+          await AsyncStorage.setItem('uyeturu', this.state.uyeturu);
         } catch (error) {
           console.log('AsyncStorage', error);
         }
@@ -71,7 +76,12 @@ class LoginForm extends Component {
           await loginAPI(body);
           AsyncStorage.setItem('userName', this.state.uname);
           AsyncStorage.setItem('password', this.state.password);
-          this.props.navigation.navigate('RotaVeyaRehber');
+          AsyncStorage.setItem('userturu', this.state.uyeturu);
+          if (uname == 'rehber1') {
+            this.props.navigation.navigate('RotaEkleme');
+          } else if (uname == 'depoyb') {
+            this.props.navigation.navigate('RotaVeyaRehber');
+          }
         } catch (error) {
           // this.props.navigation.navigate('RotaVeyaRehber');
           alert(error);

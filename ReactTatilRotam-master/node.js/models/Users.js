@@ -9,7 +9,8 @@ const UsersSchema=new Schema({
     Sifre:{ type: String, required: true },
     SifreTekrar:{ type: String, required: true },
     Email:{ type: String, required: true,unique:true },
-    KayitOlmaTarihi:{type:Date,required:true}
+    KayitOlmaTarihi:{type:Date,required:true},
+    UyeTuru:{type:String,required:true}
 });
 UsersSchema.pre('save', function(next) {
     var user = this;
@@ -22,25 +23,25 @@ UsersSchema.pre('save', function(next) {
         bcrypt.hash(user.Sifre, salt, function(err, hash) {
             if (err) return next(err);
 
-            user.Sifre = hash;
-            user.SifreTekrar=hash;
+            // user.Sifre = hash;
+            // user.SifreTekrar=hash;
             next();
         });
-        // if (err) return next(err);
+        if (err) return next(err);
 
-        // bcrypt.hash(user.SifreTekrar, salt, function(err, hash) {
-        //     if (err) return next(err);
+        bcrypt.hash(user.SifreTekrar, salt, function(err, hash) {
+            if (err) return next(err);
 
-        //     user.SifreTekrar = hash;
-        //     next();
-        // });
+            // user.SifreTekrar = hash;
+            next();
+        });  
     });
 });
 UsersSchema.methods.comparePassword = function(candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.Sifre, function(err, isMatch) {
-        if (err) return cb(err);
-        cb(null, isMatch);
-    });
+    // bcrypt.compare(candidatePassword, this.Sifre, function(err, isMatch) {
+    //     if (err) return cb(err);
+    //     cb(null, isMatch);
+    // });
     // bcrypt.compare(candidatePassword, this.SifreTekrar, function(err, isMatch) {
     //     if (err) return cb(err);
     //     cb(null, isMatch);

@@ -10,7 +10,8 @@ router.post('/new', function(req, res, next) {
     Sifre:req.body.Sifre,
     SifreTekrar:req.body.SifreTekrar,
     Email:req.body.Email,
-    KayitOlmaTarihi:new Date()
+    KayitOlmaTarihi:new Date(),
+    UyeTuru:'kullanıcı'
   })
   user.save((err,data)=>{
     if(err){
@@ -42,7 +43,6 @@ router.post('/girisK', function(req, res, next) {
         });
       }
     })
-  
 })
 
 module.exports = router;

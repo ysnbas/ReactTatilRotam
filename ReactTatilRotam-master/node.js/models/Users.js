@@ -22,7 +22,7 @@ UsersSchema.pre('save', function(next) {
 
         bcrypt.hash(user.Sifre, salt, function(err, hash) {
             if (err) return next(err);
-
+            
             // user.Sifre = hash;
             // user.SifreTekrar=hash;
             next();

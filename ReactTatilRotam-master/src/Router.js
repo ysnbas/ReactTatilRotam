@@ -11,9 +11,11 @@ import WhellCity from '../src/pages/WhellCity';
 import Map from '../src/pages/Map';
 import SelectCity from '../src/pages/SelectCity';
 import RotaEkleme from '../src/pages/RotaEkleme';
+import RotaDuzenle from '../src/pages/RotaDuzenle';
+import Ehue from '../src/pages/Ehue';
+import OlusturVeyaDuzenle from '../src/pages/OlusturVeyaDuzenle';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-import Ehue from '../src/pages/Ehue';
 
 const {width, height} = Dimensions.get('window');
 
@@ -88,6 +90,20 @@ const AppNavigator = createStackNavigator(
     },
     RotaEkleme: {
       screen: RotaEkleme,
+      navigationOptions: {
+        headerShown: false,
+        headerLeft: null,
+      },
+    },
+    OlusturVeyaDuzenle: {
+      screen: OlusturVeyaDuzenle,
+      navigationOptions: {
+        headerShown: false,
+        headerLeft: null,
+      },
+    },
+    RotaDuzenle: {
+      screen: RotaDuzenle,
       navigationOptions: {
         headerShown: false,
         headerLeft: null,

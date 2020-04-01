@@ -1,95 +1,52 @@
 import React, {Component} from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  Picker,
-  Image,
-  AsyncStorage,
-} from 'react-native';
-
-import {Dropdown} from 'react-native-material-dropdown';
-import * as data from '../../json/iller.json';
-const word = data;
-
-export default class Home extends Component {
+import {Text, View, FlatList, Image, StyleSheet} from 'react-native';
+import GetRotalarAPI from '../../service/GetRotalarAPI';
+export default class App extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      categoryList: [],
-      subCategoryList: [],
+      resData: null,
     };
-    this.getdata = this.getdata.bind(this);
-    this.onChangeText = this.onChangeText.bind(this);
   }
 
-  componentWillMount() {
-    this.getdata();
-  }
-
-  //TODO: Popup Dropdown all Medication List get
-  getdata() {
-    var temp = [];
-    // fetch("http://localhost:8080/dropdownlist", {
-    //   method: "Get",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json"
-    //   }
-    // })
-    //   .then(response => response.json())
-    //   .then(responseJson => {
-    //     var len = responseJson.data.length;
-    //     if (len > 0) {
-    //       for (let i = 0; i < len; i++) {
-    //         var data = responseJson.data[i];
-    //         var joined = { value: data.question};
-    //         temp.push(joined);
-    //       }
-    //     }
-    //     console.log('catelgory List Data=',JSON.stringify(temp));
-    //     this.setState({
-    //       categoryList: temp
-    //     });
-    //   })
-    //   .catch(error => {
-    //     console.error(error);
-    //   });
-
-    // TODO: Json File data
-    if (word) {
-      var len = word.iller.length;
-      if (len > 0) {
-        for (let i = 0; i < len; i++) {
-          var data = word.iller[i];
-          var joined = {value: data.sehirAdi};
-          temp.push(joined);
-        }
+  componentDidMount = async () => {
+    {
+      try {
+        await GetRotalarAPI().then(vals => {
+          console.log('->', vals);
+          this.setState({resData: vals});
+        });
+      } catch (error) {
+        alert(error);
       }
-      this.setState({
-        categoryList: temp,
-      });
     }
-  }
-
-  //TODO: Drop down selted values show group values
-  onChangeText(text) {
-    var temp = [];
-  }
-
+  };
+  _listEmptyComponent = () => {
+    return (
+      <View>
+        <Text>Rota bulunmamakta.</Text>
+      </View>
+    );
+  };
+  renderContactItem = (item, index) => {
+    return (
+      <View>
+        <Text>{item.item.BaslangicNoktasi}</Text>
+        <Text>{item.item.BaslangicNoktasi}</Text>
+      </View>
+    );
+  };
   render() {
     return (
-      <View style={{marginTop: 20}}>
-        <View style={{padding: 10}}>
-          <Dropdown
-            label="Main Category"
-            onChangeText={this.onChangeText}
-            data={this.state.categoryList}
-          />
-        </View>
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <FlatList
+          ref="flatList"
+          //inverted ters cevirir listeyi
+          renderItem={this.renderContactItem}
+          ListEmptyComponent={this._listEmptyComponent}
+          keyExtractor={(item, index) => index.toString()}
+          data={this.state.resData}
+        />
       </View>
     );
   }

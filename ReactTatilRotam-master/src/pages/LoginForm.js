@@ -32,7 +32,7 @@ class LoginForm extends Component {
         this.setState(
           {uname: uname, password: password, uyeturu: uyeturu},
           () => {
-            this.props.navigation.navigate('RotaEkleme');
+            this.props.navigation.navigate('OlusturVeyaDuzenle');
           },
         );
       }
@@ -43,7 +43,7 @@ class LoginForm extends Component {
 
   submit = async () => {
     const {uname, password, uyeturu} = this.state;
-
+    console.log(uyeturu);
     try {
       await AsyncStorage.setItem('uname', this.state.uname);
       await AsyncStorage.setItem('uyeturu', this.state.uyeturu);
@@ -78,7 +78,7 @@ class LoginForm extends Component {
           AsyncStorage.setItem('password', this.state.password);
           AsyncStorage.setItem('userturu', this.state.uyeturu);
           if (uname == 'rehber1') {
-            this.props.navigation.navigate('RotaEkleme');
+            this.props.navigation.navigate('OlusturVeyaDuzenle');
           } else if (uname == 'depoyb') {
             this.props.navigation.navigate('RotaVeyaRehber');
           }

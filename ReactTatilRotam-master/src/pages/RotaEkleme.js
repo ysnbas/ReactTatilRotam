@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Input from '../components/input';
+
 import {
   StyleSheet,
   Text,
@@ -11,6 +11,7 @@ import {withNavigation} from 'react-navigation';
 import {Dropdown} from 'react-native-material-dropdown';
 import * as data from '../../json/iller.json';
 const word = data;
+
 import RotaEklemeAPI from '../../service/RotaEklemeAPI';
 class RotaEkleme extends Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class RotaEkleme extends Component {
     this.onChangeText = this.onChangeText.bind(this);
     this.submit = this.submit.bind(this);
   }
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getdata();
   }
   submit = async () => {
@@ -46,14 +47,15 @@ class RotaEkleme extends Component {
 
         try {
           await RotaEklemeAPI(body);
-          alert('aslşdlasşdlş');
         } catch (error) {
           alert('error');
         }
       }
+      this.props.navigation.navigate('RotaDuzenle');
     }
     Keyboard.dismiss();
   };
+
   //TODO: Popup Dropdown all Medication List get
   getdata() {
     var temp = [];

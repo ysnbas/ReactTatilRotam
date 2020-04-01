@@ -19,4 +19,18 @@ router.post('/newRoute', function(req, res, next) {
   
 });
 
+router.get('/rotas',function(req, res, next){
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("tatilRotam");
+  dbo.collection("rotas").find({}).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    db.close();
+    res.json(result)
+  });
+});
+})
 module.exports = router;

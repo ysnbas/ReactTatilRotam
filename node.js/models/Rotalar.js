@@ -4,9 +4,11 @@ const Schema = mongoose.Schema;
 const RotalarSchema=new Schema({
     BaslangicNoktasi:{ type: String},
     BitisNoktasi:{ type: String },
-    Mekan:{type:String},
-    AraYerler:{type:String}
+    Rotalar:[{
+      type:String
+  }]
 });
+
 RotalarSchema.pre('save', function(next) {
   var self = this;
   self.constructor.count(function(err, data) {

@@ -7,7 +7,8 @@ var ObjectID = require('mongodb').ObjectID;
 router.post('/newRoute', function(req, res, next) {
     const rota=new RotalarSchema({
         BaslangicNoktasi:req.body.BaslangicNoktasi,
-        BitisNoktasi:req.body.BitisNoktasi
+        BitisNoktasi:req.body.BitisNoktasi,
+        Rotalar:req.body.Rotalar
     })
     rota.save((err,data)=>{
       if(err){
@@ -17,18 +18,7 @@ router.post('/newRoute', function(req, res, next) {
        res.json(data);
     })
 });
-router.post('/arayerler', function(req, res, next) {
-  const rota=new RotalarSchema({
-     AraYerler:req.body.AraYerler
-  })
-  rota.save((err,data)=>{
-    if(err){
-      console.log(err)
-      res.json(err);
-    }
-     res.json(data);
-  })
-});
+
 router.get('/rotas',function(req, res, next){
 var url = "mongodb://localhost:27017/";
 MongoClient.connect(url, function(err, db) {

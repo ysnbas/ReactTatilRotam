@@ -1,15 +1,10 @@
 import axios from 'react-native-axios';
-
-const RotaEklemeAPI = rota => {
+const MekanEKleAPI = rota => {
   return new Promise((resolve, reject) => {
     axios
-
-      .post('http://192.168.0.26:3000/rotalar/newRoute', {
-        BaslangicNoktasi: rota.Basnoktasi,
-        BitisNoktasi: rota.Bitnoktasi,
-        Rotalar: rota.rotanoktasi,
+      .post('http://192.168.0.26:3000/mekanlar/newmekan', {
+        mekan: rota.mekan,
       })
-
       .then(function(response) {
         console.log(response.data.status);
         if (response.data.status === true) {
@@ -22,4 +17,4 @@ const RotaEklemeAPI = rota => {
   });
 };
 
-module.exports = RotaEklemeAPI;
+module.exports = MekanEKleAPI;

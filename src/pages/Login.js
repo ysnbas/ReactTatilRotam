@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   BackHandler,
   Alert,
+  ScrollView,
 } from 'react-native';
 import {CheckBox} from 'react-native-elements';
 
@@ -69,29 +70,31 @@ export default class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.HeadText}>Tatil Rotam</Text>
-        <KeyboardAvoidingView behavior={'padding'}>
-          <View style={styles.LgnArea}>
-            <LoginForm />
+        <ScrollView style={styles.scrollView}>
+          <Text style={styles.HeadText}>Tatil Rotam</Text>
+          <KeyboardAvoidingView behavior={'padding'}>
+            <View style={styles.LgnArea}>
+              <LoginForm />
 
-            <CheckBox
-              center
-              title="Beni Hatırla"
-              checked={this.state.checked}
-              onPress={() => this.setState({checked: !this.state.checked})}
-            />
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('ForgotPassAct')}>
-              <Text style={styles.SifremiUnuttumTxt}>Şifremi Unuttum</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('Register')}>
-              <Text style={styles.RegisterTxt}>
-                Hâlâ Kayıtlı Değilsen! Üye Ol
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </KeyboardAvoidingView>
+              <CheckBox
+                center
+                title="Beni Hatırla"
+                checked={this.state.checked}
+                onPress={() => this.setState({checked: !this.state.checked})}
+              />
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('ForgotPassAct')}>
+                <Text style={styles.SifremiUnuttumTxt}>Şifremi Unuttum</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('Register')}>
+                <Text style={styles.RegisterTxt}>
+                  Hâlâ Kayıtlı Değilsen! Üye Ol
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </KeyboardAvoidingView>
+        </ScrollView>
       </View>
     );
   }

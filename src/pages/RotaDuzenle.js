@@ -25,20 +25,15 @@ export default class App extends Component {
       alert(error);
     }
   };
-  Duzenle = async () => {
-    try {
-      this.props.navigation.navigate('RotaGuncelleme');
-    } catch (error) {
-      alert(error);
-    }
+
+  navigateRotaBilgileri = (Baslangic, Bitis, Rotalar) => {
+    this.props.navigation.navigate('RotaGuncelleme', {
+      Baslangic,
+      Bitis,
+      Rotalar,
+    });
   };
-  RotaEkle = async () => {
-    try {
-      this.props.navigation.navigate('YeniRotaEkleme');
-    } catch (error) {
-      alert(error);
-    }
-  };
+
   componentDidMount = async () => {
     {
       try {
@@ -53,11 +48,20 @@ export default class App extends Component {
   };
   _listEmptyComponent = () => {
     return (
-      <View>
-        <Text>Rota bulunmamakta.</Text>
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingVertical: 50,
+          paddingHorizontal: 20,
+        }}>
+        <Text style={{fontSize: 15, textAlign: 'center'}}>
+          Rota bulunmamakta.
+        </Text>
       </View>
     );
   };
+
   renderContactItem = (item, index) => {
     return (
       <View style={styles.LgnArea}>
@@ -71,7 +75,15 @@ export default class App extends Component {
           editable={this.state.isEditable}
           placeholder={item.item.BitisNoktasi}
         />
-        <TouchableOpacity style={styles.button} onPress={this.Duzenle}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            this.navigateRotaBilgileri(
+              item.item.BaslangicNoktasi,
+              item.item.BitisNoktasi,
+              item.item.Rotalar,
+            )
+          }>
           <Text style={styles.Btn1}>Düzenle</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={this.RotaEkle}>

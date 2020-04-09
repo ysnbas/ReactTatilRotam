@@ -8,6 +8,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const cityRouter = require('./routes/cities');
 const routeRouter = require('./routes/rotalar');
+// const mekanRouter = require('./routes/mekanlar');
 const mongoose = require('mongoose');
 
 const app = express();
@@ -34,6 +35,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/cities',cityRouter);
 app.use('/rotalar',routeRouter);
+// app.use('/mekanlar',mekanRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

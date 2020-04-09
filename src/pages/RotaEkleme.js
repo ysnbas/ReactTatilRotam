@@ -5,11 +5,14 @@ import {
   Text,
   View,
   TouchableOpacity,
-  KeyboardAvoidingView,
+  ScrollView,
+  Button,
+  TextInput,
 } from 'react-native';
 import {withNavigation} from 'react-navigation';
 import {Dropdown} from 'react-native-material-dropdown';
 import * as data from '../../json/iller.json';
+
 const word = data;
 
 import RotaEklemeAPI from '../../service/RotaEklemeAPI';
@@ -19,8 +22,10 @@ class RotaEkleme extends Component {
     this.state = {
       Basnoktasi: '',
       Bitnoktasi: '',
+      rotanoktasi: '',
       categoryList: [],
       subCategoryList: [],
+      textInput: [],
     };
     this.getdata = this.getdata.bind(this);
     this.onChangeText = this.onChangeText.bind(this);
@@ -29,12 +34,23 @@ class RotaEkleme extends Component {
   UNSAFE_componentWillMount() {
     this.getdata();
   }
+  // rota=async()=>{
+  //   const {arayer} = this.state;
+  // else if (arayer=='') {
+  //   this.setState({Error: 'Ara Yer Ekleyiniz.'});
+
+  // }
+  // Keyboard.dismiss();
+
+  // }
   submit = async () => {
-    const {Basnoktasi, Bitnoktasi} = this.state;
+    const {Basnoktasi, Bitnoktasi, rotanoktasi} = this.state;
     if (Basnoktasi == '') {
       this.setState({Error: 'Başlangıç Noktası Giriniz.'});
     } else if (Bitnoktasi == '') {
       this.setState({Error: 'Bitiş Noktası Giriniz.'});
+    } else if (rotanoktasi == '') {
+      this.setState({Error: 'Ara Yer Ekleyiniz.'});
     } else {
       {
         var toJSON =
@@ -42,14 +58,15 @@ class RotaEkleme extends Component {
           this.state.Basnoktasi +
           "', 'Bitnoktasi': '" +
           this.state.Bitnoktasi +
+          "','rotanoktasi': '" +
+          this.state.rotanoktasi +
           "'}";
         var body = eval('(' + toJSON + ')');
 
         try {
           await RotaEklemeAPI(body);
-          this.props.navigation.navigate('RotaDuzenle');
         } catch (error) {
-          alert('error');
+          alert(error);
         }
       }
     }
@@ -78,21 +95,40 @@ class RotaEkleme extends Component {
   onChangeText(text) {
     var temp = [];
   }
+
+  addTextInput = key => {
+    const {rotanoktasi} = this.state;
+    let textInput = this.state.textInput;
+    textInput.push(
+      <Dropdown
+        key={key}
+        label="Ara Yerler"
+        placeholder="Seçiniz"
+        data={this.state.categoryList}
+        onChangeText={value =>
+          this.setState({
+            rotanoktasi: rotanoktasi + ',' + value,
+          })
+        }
+      />,
+    );
+    this.setState({textInput});
+  };
+  removeTextInput = () => {
+    let textInput = this.state.textInput;
+    textInput.pop();
+    this.setState({textInput});
+  };
+
   render() {
     return (
       <View style={styles.container}>
-        <KeyboardAvoidingView behavior={'padding'}>
+        <ScrollView style={styles.scrollView}>
           <Text style={styles.HeadText}>Rota Ekleme</Text>
           <View style={styles.LgnArea}>
             <Text style={{color: 'red', textAlign: 'center'}}>
               {this.state.Error}
             </Text>
-            {/* <Input
-              placeholder="Başlangıç Noktası"
-              autoCapitalize="none"
-              ReturnKeyType={'next'}
-              onChangeText={Basnoktasi => this.setState({Basnoktasi})}
-            /> */}
 
             <View>
               <View style={{padding: 10}}>
@@ -112,17 +148,26 @@ class RotaEkleme extends Component {
                 />
               </View>
             </View>
-            {/* <Input
-              placeholder="Bitiş Noktası"
-              autoCapitalize="none"
-              ReturnKeyType={'next'}
-              onChangeText={Bitnoktasi => this.setState({Bitnoktasi})}
-            /> */}
+            {this.state.textInput.map(value => {
+              return value;
+            })}
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => this.addTextInput(this.state.textInput.length)}>
+              <Text style={styles.Btn1}>Yeni Girdi Ekle</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => this.removeTextInput()}>
+              <Text style={styles.Btn1}>Girdiyi Sil</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity style={styles.button} onPress={this.submit}>
               <Text style={styles.Btn1}>Tamamlandı</Text>
             </TouchableOpacity>
           </View>
-        </KeyboardAvoidingView>
+        </ScrollView>
       </View>
     );
   }

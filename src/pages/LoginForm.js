@@ -35,7 +35,7 @@ class LoginForm extends Component {
         this.setState(
           {uname: uname, password: password, uyeturu: uyeturu},
           () => {
-            this.props.navigation.navigate('RotaVeyaRehber');
+            this.props.navigation.navigate('OlusturVeyaDuzenle');
           },
         );
       }

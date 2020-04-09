@@ -4,10 +4,9 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  TextInput,
+  ScrollView,
 } from 'react-native';
 import {Dropdown} from 'react-native-material-dropdown';
-import AraYerlerEkleAPI from '../../service/AraYerlerEkleAPI';
 import Input from '../components/input';
 import * as data from '../../json/iller.json';
 const word = data;
@@ -81,6 +80,9 @@ export default class App extends Component {
     }
     Keyboard.dismiss();
   };
+  bitti = async () => {
+    this.props.navigation.navigate('OlusturVeyaDuzenle');
+  };
   removeTextInput = () => {
     let textInput = this.state.textInput;
     let inputData = this.state.inputData;
@@ -91,25 +93,34 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.LgnArea}>
-          <Text>Eklenecek Rotaları Giriniz.</Text>
-          {this.state.textInput.map(value => {
-            return value;
-          })}
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.addTextInput(this.state.textInput.length)}>
-            <Text style={styles.Btn1}>Yeni Girdi Ekle</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.removeTextInput()}>
-            <Text style={styles.Btn1}>Girdiyi Sil</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={this.submit}>
-            <Text style={styles.Btn1}>Tamamlandı</Text>
-          </TouchableOpacity>
-        </View>
+        <ScrollView style={styles.scrollView}>
+          <View style={styles.LgnArea}>
+            <Text style={{color: 'red', textAlign: 'center'}}>
+              {this.state.Error}
+            </Text>
+            <Text>Eklenecek Rotaları Giriniz.</Text>
+
+            {this.state.textInput.map(value => {
+              return value;
+            })}
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => this.addTextInput(this.state.textInput.length)}>
+              <Text style={styles.Btn1}>Yeni Girdi Ekle</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => this.removeTextInput()}>
+              <Text style={styles.Btn1}>Girdiyi Sil</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={this.submit}>
+              <Text style={styles.Btn1}>Rotaya Ekle</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={this.bitti}>
+              <Text style={styles.Btn1}>Bitir</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </View>
     );
   }

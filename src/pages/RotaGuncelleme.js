@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
-import GetRotalarAPI from '../../service/GetRotalarAPI';
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {Dropdown} from 'react-native-material-dropdown';
 import RotaGuncelleAPI from '../../service/RotaGuncelleAPI';
 
 import * as data from '../../json/iller.json';
+import Input from '../components/input';
 const word = data;
 export default class RotaGuncelleme extends Component {
   constructor(props) {
@@ -18,27 +18,11 @@ export default class RotaGuncelleme extends Component {
     };
     this.getdata = this.getdata.bind(this);
     this.onChangeText = this.onChangeText.bind(this);
-    this.submit = this.submit.bind(this);
   }
   UNSAFE_componentWillMount() {
     this.getdata();
   }
 
-  componentDidMount = async () => {
-    {
-      try {
-        await GetRotalarAPI().then(vals => {
-          console.log('->', vals);
-          this.setState({resData: vals});
-        });
-      } catch (error) {
-        alert(error);
-      }
-    }
-  };
-  _listEmptyComponent = () => {
-    return <View></View>;
-  };
   getdata() {
     var temp = [];
 
@@ -60,7 +44,6 @@ export default class RotaGuncelleme extends Component {
   onChangeText(text) {
     var temp = [];
   }
-  submit = async () => {};
   guncelle = async () => {
     var toJSON =
       "{'Basnoktasi': '" +
@@ -78,38 +61,35 @@ export default class RotaGuncelleme extends Component {
     Keyboard.dismiss();
   };
 
-  renderContactItem = (item, index) => {
-    return (
-      <View style={styles.LgnArea}>
-        <Dropdown
-          label="Başlangıç Noktası"
-          onChangeText={Basnoktasi => this.setState({Basnoktasi})}
-          data={this.state.categoryList}
-          value={item.item.BaslangicNoktasi}
-        />
-        <Dropdown
-          label="Başlangıç Noktası"
-          onChangeText={Bitnoktasi => this.setState({Bitnoktasi})}
-          data={this.state.categoryList}
-          value={item.item.BitisNoktasi}
-        />
-        <TouchableOpacity style={styles.button} onPress={this.guncelle}>
-          <Text style={styles.Btn1}>Güncelle</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  };
   render() {
+    const {navigation} = this.props;
+    let Baslangic = navigation.getParam('Baslangic', '');
+    let Bitis = navigation.getParam('Bitis', '');
+    let AraYerler = navigation.getParam('Rotalar', '');
     return (
       <View style={styles.container}>
-        <FlatList
-          ref="flatList"
-          //inverted ters cevirir listeyi
-          renderItem={this.renderContactItem}
-          ListEmptyComponent={this._listEmptyComponent}
-          keyExtractor={(item, index) => index.toString()}
-          data={this.state.resData}
-        />
+        <View style={styles.LgnArea}>
+          <Dropdown
+            label="Başlangıç Noktası"
+            data={this.state.categoryList}
+            onChangeText={Basnoktasi => this.setState({Basnoktasi})}
+            value={Baslangic}
+          />
+          <Dropdown
+            label="Başlangıç Noktası"
+            onChangeText={Bitnoktasi => this.setState({Bitnoktasi})}
+            data={this.state.categoryList}
+            value={Bitis}
+          />
+          <Text style={{marginTop: 15}}>Ara Yerler</Text>
+          <Input>{AraYerler[0]}</Input>
+          <Input>{AraYerler[1]}</Input>
+          <Input>{AraYerler[2]}</Input>
+
+          <TouchableOpacity style={styles.button} onPress={this.guncelle}>
+            <Text style={styles.Btn1}>Güncelle</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }

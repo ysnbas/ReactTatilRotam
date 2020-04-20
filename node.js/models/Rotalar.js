@@ -1,16 +1,20 @@
 const mongoose=require('mongoose');
 const Schema = mongoose.Schema;
 
+// const MekanlarSchema = new Schema({
+//   AraYerler:{type:String}
+// })
 const RotalarSchema=new Schema({
     BaslangicNoktasi:{ type: String},
     BitisNoktasi:{ type: String },
-    Rotalar:[{
-      type:String
-  }]
+    Rotalar:[
+      {type:String}
+    ]
 });
 
 RotalarSchema.pre('save', function(next) {
   var self = this;
+  
   self.constructor.count(function(err, data) {
     if(err){
        return next(err);

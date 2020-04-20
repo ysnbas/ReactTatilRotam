@@ -6,7 +6,6 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
-  Button,
   TextInput,
 } from 'react-native';
 import {withNavigation} from 'react-navigation';

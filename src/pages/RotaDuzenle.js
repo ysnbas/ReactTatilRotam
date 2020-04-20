@@ -86,9 +86,9 @@ export default class App extends Component {
           }>
           <Text style={styles.Btn1}>Düzenle</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={this.RotaEkle}>
+        {/* <TouchableOpacity style={styles.button} onPress={this.RotaEkle}>
           <Text style={styles.Btn1}>Rota Şehir Ekle</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity style={styles.button} onPress={this.sil}>
           <Text style={styles.Btn1}>Sil</Text>
         </TouchableOpacity>

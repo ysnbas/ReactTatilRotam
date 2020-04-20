@@ -9,6 +9,7 @@ router.post('/newRoute', function(req, res, next) {
         BaslangicNoktasi:req.body.BaslangicNoktasi,
         BitisNoktasi:req.body.BitisNoktasi,
         Rotalar:req.body.Rotalar
+        
     })
     rota.save((err,data)=>{
       if(err){

@@ -1,22 +1,19 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
-export default class RotaVeyaRehber extends Component {
+export default class EnYakinMekan extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.HeadText}>Rotalarım</Text>
+        <Text style={styles.HeadText}>Haritalar</Text>
         <TouchableOpacity
           style={styles.RehberBtn}
-          onPress={() => this.props.navigation.navigate('Rotalar')}>
-          <Text style={styles.Btn1}>Rotalar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.RehberBtn}>
-          <Text style={styles.Btn1}>Rotalarım</Text>
+          onPress={() => this.props.navigation.navigate('EnYakinRestoranlar')}>
+          <Text style={styles.Btn1}>En Yakın Restoranlar</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.RehberBtn}
-          onPress={() => this.props.navigation.navigate('EnYakinMekan')}>
-          <Text style={styles.Btn1}>Harita</Text>
+          onPress={() => this.props.navigation.navigate('EnYakinGezmelik')}>
+          <Text style={styles.Btn1}>En Yakın Gezmelik Yerler</Text>
         </TouchableOpacity>
       </View>
     );

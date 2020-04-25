@@ -29,13 +29,13 @@ router.post('/girisK', function(req, res, next) {
     kullaniciAdi:req.body.kullaniciAdi,
     Sifre:req.body.Sifre,
     
-  }).count();
+  }).findOne();
   userlogincontrol
     .then(data => {
-      console.log(data);
-      if (data > 0) {
+      if (data != null) {
         return res.json({
-          status: true
+          status: true,
+          id:data._id
         });
       } else {
         return res.json({
@@ -44,5 +44,17 @@ router.post('/girisK', function(req, res, next) {
       }
     })
 })
-
+router.get('/kullanicilar',function(req, res, next){
+  var url = "mongodb://localhost:27017/";
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("tatilRotam");
+    dbo.collection("isims").find({}).toArray(function(err, result) {
+      if (err) throw err;
+      console.log(result);
+      db.close();
+      res.json(result)
+    });
+  });
+  })
 module.exports = router;

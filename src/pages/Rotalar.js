@@ -33,6 +33,13 @@ export default class Rotalar extends Component {
       </View>
     );
   };
+  navigateRotaBilgileri = (Baslangic, Bitis, Rotalar) => {
+    this.props.navigation.navigate('RotaInceleme', {
+      Baslangic,
+      Bitis,
+      Rotalar,
+    });
+  };
   renderContactItem = (item, index) => {
     return (
       <View style={styles.LgnArea}>
@@ -49,7 +56,15 @@ export default class Rotalar extends Component {
         <TouchableOpacity style={styles.button}>
           <Text style={styles.Btn1}>Katıl</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            this.navigateRotaBilgileri(
+              item.item.BaslangicNoktasi,
+              item.item.BitisNoktasi,
+              item.item.Rotalar,
+            )
+          }>
           <Text style={styles.Btn1}>İncele</Text>
         </TouchableOpacity>
       </View>

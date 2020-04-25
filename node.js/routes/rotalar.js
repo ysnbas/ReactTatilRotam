@@ -5,11 +5,11 @@ var MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
 
 router.post('/newRoute', function(req, res, next) {
-    const rota=new RotalarSchema({
+    const rota=new RotalarSchema({  
+        userID:req.body.userID,
         BaslangicNoktasi:req.body.BaslangicNoktasi,
         BitisNoktasi:req.body.BitisNoktasi,
-        Rotalar:req.body.Rotalar
-        
+        Rotalar:req.body.Rotalar,
     })
     rota.save((err,data)=>{
       if(err){

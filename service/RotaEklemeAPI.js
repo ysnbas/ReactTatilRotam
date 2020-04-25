@@ -9,6 +9,7 @@ const RotaEklemeAPI = rota => {
   return new Promise((resolve, reject) => {
     axios
       .post('http://192.168.0.26:3000/rotalar/newRoute', {
+        userID: rota.userId,
         BaslangicNoktasi: rota.Basnoktasi,
         BitisNoktasi: rota.Bitnoktasi,
         Rotalar,

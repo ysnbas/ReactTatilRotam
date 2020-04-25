@@ -2,7 +2,6 @@ const mongoose=require('mongoose');
 const Schema = mongoose.Schema;
 
 const MekanlarSchema=new Schema({
-    Mekanlar:{ type: String},
     AraYerler:{ type: String},
 });
 MekanlarSchema.pre('save', function(next) {

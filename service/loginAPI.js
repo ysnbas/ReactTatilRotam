@@ -1,4 +1,5 @@
 import axios from 'react-native-axios';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const loginAPI = user => {
   return new Promise((resolve, reject) => {
@@ -6,7 +7,6 @@ const loginAPI = user => {
       .post('http://192.168.0.26:3000/users/girisK', {
         kullaniciAdi: user.uname,
         Sifre: user.password,
-        UyeTuru: user.uyeturu,
       })
       .then(function(response) {
         console.log(response.data.status);
@@ -15,7 +15,7 @@ const loginAPI = user => {
           alert('hatalı giriş');
         }
         if (response.data.status === true) {
-          resolve();
+          AsyncStorage.setItem('id', response.data.id).then(resolve());
         }
       })
       .catch(function(error) {

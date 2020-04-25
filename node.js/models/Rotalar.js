@@ -5,11 +5,10 @@ const Schema = mongoose.Schema;
 //   AraYerler:{type:String}
 // })
 const RotalarSchema=new Schema({
+    userID:{type:Schema.Types.ObjectId},
     BaslangicNoktasi:{ type: String},
     BitisNoktasi:{ type: String },
-    Rotalar:[
-      {type:String}
-    ]
+    Rotalar:[{type:String}]
 });
 
 RotalarSchema.pre('save', function(next) {

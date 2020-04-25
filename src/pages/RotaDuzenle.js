@@ -3,7 +3,6 @@ import {Text, View, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import GetRotalarAPI from '../../service/GetRotalarAPI';
 import Input from '../components/input';
 import DeleteRotalarAPI from '../../service/DeleteRotalarAPI';
-import AsyncStorage from '@react-native-community/async-storage';
 
 export default class App extends Component {
   constructor(props) {
@@ -46,6 +45,7 @@ export default class App extends Component {
       }
     }
   };
+
   _listEmptyComponent = () => {
     return (
       <View

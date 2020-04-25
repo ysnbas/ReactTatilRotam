@@ -8,13 +8,15 @@ import RotaVeyaRehber from '../src/pages/RotaVeyaRehber';
 import ForgotPassAct from '../src/pages/ForgotPassAct';
 import ForgotPass from '../src/pages/ForgotPass';
 import WhellCity from '../src/pages/WhellCity';
-import Map from '../src/pages/Map';
+import EnYakinRestoranlar from './pages/EnYakinRestoranlar';
 import SelectCity from '../src/pages/SelectCity';
 import RotaEkleme from '../src/pages/RotaEkleme';
 import RotaDuzenle from '../src/pages/RotaDuzenle';
 import YeniRotaEkleme from '../src/pages/YeniRotaEkleme';
 import RotaGuncelleme from './pages/RotaGuncelleme';
 import Rotalar from '../src/pages/Rotalar';
+import RotaInceleme from '../src/pages/RotaInceleme';
+import EnYakinMekan from '../src/pages/EnYakinMekan';
 
 import RotayaKatilVeyaRotalarim from './pages/RotayaKatilVeyaRotalarim';
 // import Ehue from '../src/pages/Ehue';
@@ -86,8 +88,8 @@ const AppNavigator = createStackNavigator(
         headerLeft: null,
       },
     },
-    Map: {
-      screen: Map,
+    EnYakinRestoranlar: {
+      screen: EnYakinRestoranlar,
       navigationOptions: {
         headerShown: false,
         headerLeft: null,
@@ -142,6 +144,21 @@ const AppNavigator = createStackNavigator(
         headerLeft: null,
       },
     },
+    RotaInceleme: {
+      screen: RotaInceleme,
+      navigationOptions: {
+        headerShown: false,
+        headerLeft: null,
+      },
+    },
+    EnYakinMekan: {
+      screen: EnYakinMekan,
+      navigationOptions: {
+        headerShown: false,
+        headerLeft: null,
+      },
+    },
+
     // Ehue: {
     //   screen: Ehue,
     //   navigationOptions: {

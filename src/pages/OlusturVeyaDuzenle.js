@@ -1,8 +1,15 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity, FlatList} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 export default class RotaVeyaRehber extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      resData: null,
+    };
+  }
+
   submit = async () => {
     try {
       await AsyncStorage.clear();
@@ -11,9 +18,30 @@ export default class RotaVeyaRehber extends Component {
 
     Keyboard.dismiss();
   };
+
+  // componentDidMount = async () => {
+  //   {
+  //     try {
+  //       await GetUserAPI().then(vals => {
+  //         console.log('->', vals);
+  //         this.setState({resData: vals});
+  //       });
+  //     } catch (error) {
+  //       alert(error);
+  //     }
+  //   }
+  //  const kadi = await AsyncStorage.getItem('userName');
+
+  // };
+
+  // renderContactItem = (item, index) => {
+  //   return console.log(item.item._id);
+
+  // };
   render() {
     return (
       <View style={styles.container}>
+        <Text style={{color: 'red', textAlign: 'center'}} />
         <Text style={styles.HeadText}>Tatil Rotam</Text>
         <TouchableOpacity
           style={styles.RehberBtn}
@@ -26,8 +54,16 @@ export default class RotaVeyaRehber extends Component {
           <Text style={styles.Btn1}>Rota Düzenle</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.RehberBtn} onPress={this.submit}>
-          <Text style={styles.Btn1}>çıkış</Text>
+          <Text style={styles.Btn1}>Çıkış</Text>
         </TouchableOpacity>
+        {/* <FlatList
+          ref="flatList"
+          //inverted ters cevirir listeyi
+          renderItem={this.renderContactItem}
+          ListEmptyComponent={this._listEmptyComponent}
+          keyExtractor={(item, index) => index.toString()}
+          data={this.state.resData}
+        /> */}
       </View>
     );
   }

@@ -6,11 +6,13 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
-  TextInput,
+  FlatList,
 } from 'react-native';
 import {withNavigation} from 'react-navigation';
 import {Dropdown} from 'react-native-material-dropdown';
 import * as data from '../../json/iller.json';
+import GetUserAPI from '../../service/getUserAPI';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const word = data;
 
@@ -19,6 +21,7 @@ class RotaEkleme extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId: '',
       Basnoktasi: '',
       Bitnoktasi: '',
       rotanoktasi: '',
@@ -33,15 +36,13 @@ class RotaEkleme extends Component {
   UNSAFE_componentWillMount() {
     this.getdata();
   }
-  // rota=async()=>{
-  //   const {arayer} = this.state;
-  // else if (arayer=='') {
-  //   this.setState({Error: 'Ara Yer Ekleyiniz.'});
+  componentDidMount = async () => {
+    await AsyncStorage.getItem('id').then(userId => {
+      this.setState({userId});
+      console.log(this.state.userId);
+    });
+  };
 
-  // }
-  // Keyboard.dismiss();
-
-  // }
   submit = async () => {
     const {Basnoktasi, Bitnoktasi, rotanoktasi} = this.state;
     if (Basnoktasi == '') {
@@ -52,6 +53,12 @@ class RotaEkleme extends Component {
       this.setState({Error: 'Ara Yer Ekleyiniz.'});
     } else {
       {
+        try {
+          AsyncStorage.setItem('id', this.state.userId);
+          console.log(this.state.userId);
+        } catch (error) {
+          console.log('AsyncStorage', error);
+        }
         var toJSON =
           "{'Basnoktasi': '" +
           this.state.Basnoktasi +
@@ -59,6 +66,8 @@ class RotaEkleme extends Component {
           this.state.Bitnoktasi +
           "','rotanoktasi': '" +
           this.state.rotanoktasi +
+          "','userId': '" +
+          this.state.userId +
           "'}";
         var body = eval('(' + toJSON + ')');
 

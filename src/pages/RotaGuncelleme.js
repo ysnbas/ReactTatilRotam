@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity, Alert} from 'react-native';
 import {Dropdown} from 'react-native-material-dropdown';
 import RotaGuncelleAPI from '../../service/RotaGuncelleAPI';
 
@@ -66,6 +66,7 @@ export default class RotaGuncelleme extends Component {
     let Baslangic = navigation.getParam('Baslangic', '');
     let Bitis = navigation.getParam('Bitis', '');
     let AraYerler = navigation.getParam('Rotalar', '');
+
     return (
       <View style={styles.container}>
         <View style={styles.LgnArea}>
@@ -82,9 +83,9 @@ export default class RotaGuncelleme extends Component {
             value={Bitis}
           />
           <Text style={{marginTop: 15}}>Ara Yerler</Text>
-          <Input>{AraYerler[0]}</Input>
-          <Input>{AraYerler[1]}</Input>
-          <Input>{AraYerler[2]}</Input>
+          {AraYerler.map((item, key) => (
+            <Input key={key}> {item} </Input>
+          ))}
 
           <TouchableOpacity style={styles.button} onPress={this.guncelle}>
             <Text style={styles.Btn1}>Güncelle</Text>

@@ -35,9 +35,9 @@ export default class RotaInceleme extends Component {
             value={Bitis}
           />
           <Text style={{marginTop: 15}}>Ara Yerler</Text>
-          <Input>{AraYerler[0]}</Input>
-          <Input>{AraYerler[1]}</Input>
-          <Input>{AraYerler[2]}</Input>
+          {AraYerler.map((item, key) => (
+            <Input key={key}> {item} </Input>
+          ))}
 
           <TouchableOpacity style={styles.button}>
             <Text style={styles.Btn1}>Katıl</Text>

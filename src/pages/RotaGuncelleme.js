@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity, Alert} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {Dropdown} from 'react-native-material-dropdown';
 import RotaGuncelleAPI from '../../service/RotaGuncelleAPI';
 
 import * as data from '../../json/iller.json';
-import Input from '../components/input';
 const word = data;
 export default class RotaGuncelleme extends Component {
   constructor(props) {
@@ -13,6 +12,7 @@ export default class RotaGuncelleme extends Component {
       resData: null,
       Basnoktasi: '',
       Bitnoktasi: '',
+      rotanoktasi: '',
       categoryList: [],
       subCategoryList: [],
     };
@@ -41,20 +41,21 @@ export default class RotaGuncelleme extends Component {
       });
     }
   }
-  onChangeText(text) {
+  onChangeText = text => {
     var temp = [];
-  }
+  };
   guncelle = async () => {
     var toJSON =
       "{'Basnoktasi': '" +
       this.state.Basnoktasi +
       "', 'Bitnoktasi': '" +
       this.state.Bitnoktasi +
+      "', 'rotanoktasi': '" +
+      this.state.rotanoktasi +
       "'}";
     var body = eval('(' + toJSON + ')');
     try {
       await RotaGuncelleAPI(body);
-      this.props.navigation.navigate('RotaDuzenle');
     } catch (error) {
       alert(error);
     }
@@ -66,6 +67,7 @@ export default class RotaGuncelleme extends Component {
     let Baslangic = navigation.getParam('Baslangic', '');
     let Bitis = navigation.getParam('Bitis', '');
     let AraYerler = navigation.getParam('Rotalar', '');
+    const {rotanoktasi} = this.state;
 
     return (
       <View style={styles.container}>
@@ -84,7 +86,16 @@ export default class RotaGuncelleme extends Component {
           />
           <Text style={{marginTop: 15}}>Ara Yerler</Text>
           {AraYerler.map((item, key) => (
-            <Input key={key}> {item} </Input>
+            <Dropdown
+              key={key}
+              value={item}
+              data={this.state.categoryList}
+              onChangeText={value =>
+                this.setState({
+                  rotanoktasi: rotanoktasi + ',' + value,
+                })
+              }
+            />
           ))}
 
           <TouchableOpacity style={styles.button} onPress={this.guncelle}>

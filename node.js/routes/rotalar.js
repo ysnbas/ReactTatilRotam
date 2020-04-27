@@ -56,7 +56,7 @@ router.post('/rotaguncelle', function(req, res, next) {
     if (err) throw err;
     var dbo = db.db("tatilRotam");
     var myquery = { "_id":  ObjectID};
-    var newvalues = { $set: {BaslangicNoktasi:req.body.BaslangicNoktasi,BitisNoktasi:req.body.BitisNoktasi} };
+    var newvalues = { $set: {BaslangicNoktasi:req.body.BaslangicNoktasi,BitisNoktasi:req.body.BitisNoktasi,Rotalar:req.body.Rotalar} };
     dbo.collection("rotas").updateOne(myquery, newvalues, function(err, res) {
       if (err) throw err;
       console.log("1 document updated");

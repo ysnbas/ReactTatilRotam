@@ -17,6 +17,7 @@ import RotaGuncelleme from './pages/RotaGuncelleme';
 import Rotalar from '../src/pages/Rotalar';
 import RotaInceleme from '../src/pages/RotaInceleme';
 import EnYakinMekan from '../src/pages/EnYakinMekan';
+import EnYakinGezmelik from '../src/pages/EnYakinGezmelik';
 
 import RotayaKatilVeyaRotalarim from './pages/RotayaKatilVeyaRotalarim';
 // import Ehue from '../src/pages/Ehue';
@@ -153,6 +154,13 @@ const AppNavigator = createStackNavigator(
     },
     EnYakinMekan: {
       screen: EnYakinMekan,
+      navigationOptions: {
+        headerShown: false,
+        headerLeft: null,
+      },
+    },
+    EnYakinGezmelik: {
+      screen: EnYakinGezmelik,
       navigationOptions: {
         headerShown: false,
         headerLeft: null,

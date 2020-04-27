@@ -11,9 +11,12 @@ export default class RotaInceleme extends Component {
       resData: null,
       Basnoktasi: '',
       Bitnoktasi: '',
+      isEditable: false,
     };
   }
-
+  _clickhandler() {
+    this.setState({isEditable: !this.state.isEditable});
+  }
   render() {
     const {navigation} = this.props;
     let Baslangic = navigation.getParam('Baslangic', '');
@@ -27,16 +30,20 @@ export default class RotaInceleme extends Component {
             data={this.state.categoryList}
             onChangeText={Basnoktasi => this.setState({Basnoktasi})}
             value={Baslangic}
+            editable={this.state.isEditable}
           />
           <Input
             label="Başlangıç Noktası"
             onChangeText={Bitnoktasi => this.setState({Bitnoktasi})}
             data={this.state.categoryList}
             value={Bitis}
+            editable={this.state.isEditable}
           />
           <Text style={{marginTop: 15}}>Ara Yerler</Text>
           {AraYerler.map((item, key) => (
-            <Input key={key}> {item} </Input>
+            <Input key={key} editable={this.state.isEditable}>
+              {item}
+            </Input>
           ))}
 
           <TouchableOpacity style={styles.button}>

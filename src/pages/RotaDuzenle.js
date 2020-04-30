@@ -24,7 +24,6 @@ export default class App extends Component {
       alert(error);
     }
   };
-
   navigateRotaBilgileri = (Baslangic, Bitis, Rotalar) => {
     this.props.navigation.navigate('RotaGuncelleme', {
       Baslangic,
@@ -32,7 +31,13 @@ export default class App extends Component {
       Rotalar,
     });
   };
-
+  navigateRotaSirala = (Baslangic, Bitis, Rotalar) => {
+    this.props.navigation.navigate('RotaSirala', {
+      Baslangic,
+      Bitis,
+      Rotalar,
+    });
+  };
   componentDidMount = async () => {
     {
       try {
@@ -89,6 +94,17 @@ export default class App extends Component {
         {/* <TouchableOpacity style={styles.button} onPress={this.RotaEkle}>
           <Text style={styles.Btn1}>Rota Şehir Ekle</Text>
         </TouchableOpacity> */}
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            this.navigateRotaSirala(
+              item.item.BaslangicNoktasi,
+              item.item.BitisNoktasi,
+              item.item.Rotalar,
+            )
+          }>
+          <Text style={styles.Btn1}>Tekrar Sırala</Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={this.sil}>
           <Text style={styles.Btn1}>Sil</Text>
         </TouchableOpacity>

@@ -72,6 +72,9 @@ export default class RotaGuncelleme extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.LgnArea}>
+          <Text style={{fontSize: 15, textAlign: 'center'}}>
+            Hepsiniz Tekrar Seçiniz.
+          </Text>
           <Dropdown
             label="Başlangıç Noktası"
             data={this.state.categoryList}

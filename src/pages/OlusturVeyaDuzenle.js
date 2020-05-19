@@ -50,8 +50,18 @@ export default class RotaVeyaRehber extends Component {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.RehberBtn}
+          onPress={() => this.props.navigation.navigate('SehirIciRota')}>
+          <Text style={styles.Btn1}>Ayrıntılı Rota Oluştur</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.RehberBtn}
           onPress={() => this.props.navigation.navigate('RotaDuzenle')}>
           <Text style={styles.Btn1}>Rota Düzenle</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.RehberBtn}
+          onPress={() => this.props.navigation.navigate('SehirIciRotaDuzenle')}>
+          <Text style={styles.Btn1}>Ayrıntılı Rota Düzenle</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.RehberBtn} onPress={this.submit}>
           <Text style={styles.Btn1}>Çıkış</Text>

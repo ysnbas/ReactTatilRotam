@@ -1,53 +1,42 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList, Image, StyleSheet} from 'react-native';
-import GetRotalarAPI from '../../service/GetRotalarAPI';
-export default class App extends Component {
+
+// note that you can also export the source data via CountryRegionData. It's in a deliberately concise format to
+// keep file size down
+import {
+  CountryDropdown,
+  RegionDropdown,
+  CountryRegionData,
+} from 'react-country-region-selector';
+import {View, Text} from 'react-native-animatable';
+
+export default class ehue extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      resData: null,
-    };
+    this.state = {country: '', region: ''};
   }
 
-  componentDidMount = async () => {
-    {
-      try {
-        await GetRotalarAPI().then(vals => {
-          console.log('->', vals);
-          this.setState({resData: vals});
-        });
-      } catch (error) {
-        alert(error);
-      }
-    }
-  };
-  _listEmptyComponent = () => {
-    return (
-      <View>
-        <Text>Rota bulunmamakta.</Text>
-      </View>
-    );
-  };
-  renderContactItem = (item, index) => {
-    return (
-      <View>
-        <Text>{item.item.BaslangicNoktasi}</Text>
-        <Text>{item.item.BaslangicNoktasi}</Text>
-      </View>
-    );
-  };
+  selectCountry(val) {
+    this.setState({country: val});
+  }
+
+  selectRegion(val) {
+    this.setState({region: val});
+  }
+
   render() {
+    const {country, region} = this.state;
     return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <FlatList
-          ref="flatList"
-          //inverted ters cevirir listeyi
-          renderItem={this.renderContactItem}
-          ListEmptyComponent={this._listEmptyComponent}
-          keyExtractor={(item, index) => index.toString()}
-          data={this.state.resData}
+      <Text>
+        <CountryDropdown
+          value={country}
+          onChange={val => this.selectCountry(val)}
         />
-      </View>
+        <RegionDropdown
+          country={country}
+          value={region}
+          onChange={val => this.selectRegion(val)}
+        />
+      </Text>
     );
   }
 }

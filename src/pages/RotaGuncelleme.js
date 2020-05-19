@@ -32,7 +32,7 @@ export default class RotaGuncelleme extends Component {
       if (len > 0) {
         for (let i = 0; i < len; i++) {
           var data = word.iller[i];
-          var joined = {value: data.sehirAdi};
+          var joined = {value: data.il};
           temp.push(joined);
         }
       }

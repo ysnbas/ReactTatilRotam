@@ -1,13 +1,17 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, TouchableOpacity, FlatList, Text} from 'react-native';
 import GetRotalarAPI from '../../service/GetRotalarAPI';
+import KullaniciyeRotaEkleAPI from '../../service/KullaniciyeRotaEkleAPI';
 import Input from '../components/input';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class Rotalar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       resData: null,
+      rotaId: '',
+      userId: '',
       isEditable: false,
     };
   }
@@ -25,6 +29,10 @@ export default class Rotalar extends Component {
         alert(error);
       }
     }
+    await AsyncStorage.getItem('id').then(userId => {
+      this.setState({userId});
+      console.log(this.state.userId);
+    });
   };
   _listEmptyComponent = () => {
     return (
@@ -40,6 +48,18 @@ export default class Rotalar extends Component {
       Rotalar,
     });
   };
+  IdleriKayitEt = async deger => {
+    var toJSON =
+      "{'userId': '" + this.state.userId + "', 'rotaId': '" + deger + "'}";
+    console.log(toJSON);
+    var body = eval('(' + toJSON + ')');
+    try {
+      await KullaniciyeRotaEkleAPI(body);
+    } catch (error) {
+      alert(error);
+    }
+    Keyboard.dismiss();
+  };
   renderContactItem = (item, index) => {
     return (
       <View style={styles.LgnArea}>
@@ -53,7 +73,9 @@ export default class Rotalar extends Component {
           editable={this.state.isEditable}
           placeholder={item.item.BitisNoktasi}
         />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => this.IdleriKayitEt(item.item._id)}>
           <Text style={styles.Btn1}>Katıl</Text>
         </TouchableOpacity>
         <TouchableOpacity

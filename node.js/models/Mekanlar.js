@@ -2,7 +2,12 @@ const mongoose=require('mongoose');
 const Schema = mongoose.Schema;
 
 const MekanlarSchema=new Schema({
-    AraYerler:{ type: String},
+  userID:{type:Schema.Types.ObjectId},
+  // Sehirler:[{ type: String}],
+  Mekanlar:[{MekanAdi:String}],
+  Aciklama:{type:String},
+  BaslangicTarihi:{type:Date},
+  BitisTarihi:{type:Date}
 });
 MekanlarSchema.pre('save', function(next) {
     var self = this;

@@ -11,7 +11,6 @@ import {
 import {withNavigation} from 'react-navigation';
 import {Dropdown} from 'react-native-material-dropdown';
 import * as data from '../../json/iller.json';
-import GetUserAPI from '../../service/getUserAPI';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const word = data;
@@ -91,7 +90,7 @@ class RotaEkleme extends Component {
       if (len > 0) {
         for (let i = 0; i < len; i++) {
           var data = word.iller[i];
-          var joined = {value: data.sehirAdi};
+          var joined = {value: data.il};
           temp.push(joined);
         }
       }

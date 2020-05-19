@@ -11,6 +11,7 @@ const UsersSchema=new Schema({
     Email:{ type: String, required: true,unique:true },
     KayitOlmaTarihi:{type:Date,required:true},
     UyeTuru:{type:String,required:true}
+    //KatildigimRotalar:{type:Schema.Types.ObjectId}//id sini getir ve kayıt et
 });
 UsersSchema.pre('save', function(next) {
     var user = this;

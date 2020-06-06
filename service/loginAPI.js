@@ -1,10 +1,11 @@
 import axios from 'react-native-axios';
 import AsyncStorage from '@react-native-community/async-storage';
+import URL from './URL';
 
 const loginAPI = user => {
   return new Promise((resolve, reject) => {
     axios
-      .post('http://192.168.0.26:3000/users/girisK', {
+      .post(URL + '/users/girisK', {
         kullaniciAdi: user.uname,
         Sifre: user.password,
       })

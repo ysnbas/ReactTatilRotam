@@ -19,21 +19,21 @@ export default class SehirIciRota extends Component {
     super(props);
     this.state = {
       userId: '',
-      mekanlar: '',
+      mekanAdi: '',
+      mekanAciklama: '',
       aciklama: '',
       BasTarihi: '',
       BitisTarihi: '',
-      categoryList: [],
-      subCategoryList: [],
       textInput: [],
       mekanInput: [],
+      AciklamaInput: [],
+      dene: null,
+      counter: 0,
       BasDate: '2020-01-01',
       BitDate: '2020-01-01',
       // dinamikIlce: [],
       // data,
     };
-
-    this.getdata = this.getdata.bind(this);
   }
   componentDidMount = async () => {
     await AsyncStorage.getItem('id').then(userId => {
@@ -41,32 +41,12 @@ export default class SehirIciRota extends Component {
       console.log(this.state.userId);
     });
   };
-  UNSAFE_componentWillMount() {
-    this.getdata();
-  }
-  getdata() {
-    var temp = [];
-    // TODO: Json File data
-    if (word) {
-      var len = word.iller.length;
-      if (len > 0) {
-        for (let i = 0; i < len; i++) {
-          var data = word.iller[i];
-          var joined = {value: data.il};
-          var ilce = {value: data.ilceleri};
-
-          temp.push(joined);
-        }
-      }
-      this.setState({
-        categoryList: temp,
-      });
-    }
-  }
   submit = async () => {
-    const {sehir, mekanlar, aciklama} = this.state;
-    if (mekanlar == '') {
+    const {mekanAdi, mekanAciklama, aciklama} = this.state;
+    if (mekanAdi == '') {
       this.setState({Error: 'Mekan giriniz.'});
+    } else if (mekanAciklama == '') {
+      this.setState({Error: 'Mekana Açıklama Ekleyiniz.'});
     } else if (aciklama == '') {
       this.setState({Error: 'Açıklama Ekleyiniz.'});
     } else {
@@ -78,8 +58,10 @@ export default class SehirIciRota extends Component {
           console.log('AsyncStorage', error);
         }
         var toJSON =
-          "{'mekanlar': '" +
-          this.state.mekanlar +
+          "{'mekanAdi': '" +
+          this.state.mekanAdi +
+          "','mekanAciklama': '" +
+          this.state.mekanAciklama +
           "','aciklama': '" +
           this.state.aciklama +
           "','userId': '" +
@@ -100,21 +82,29 @@ export default class SehirIciRota extends Component {
     }
     Keyboard.dismiss();
   };
+
   addMekanInput = key => {
-    const {mekanlar} = this.state;
+    const {mekanAdi, mekanAciklama} = this.state;
     let mekanInput = this.state.mekanInput;
     mekanInput.push(
-      <View>
-        <Input
-          key={key}
-          placeholder="Mekan"
-          onChangeText={value =>
-            this.setState({
-              mekanlar: mekanlar + ',' + value,
-            })
-          }
-        />
-      </View>,
+      <Input
+        key={key}
+        placeholder="Yeni Mekan Adı"
+        onChangeText={value =>
+          this.setState({
+            mekanAdi: mekanAdi + ',' + value,
+          })
+        }
+      />,
+      <Input
+        key={key + 1}
+        placeholder="Yeni Açıklama"
+        onChangeText={value =>
+          this.setState({
+            mekanAciklama: mekanAciklama + ',' + value,
+          })
+        }
+      />,
     );
     this.setState({mekanInput});
   };
@@ -123,31 +113,7 @@ export default class SehirIciRota extends Component {
     mekanInput.pop();
     this.setState({mekanInput});
   };
-  // addTextInput = key => {
-  //   const {sehir} = this.state;
-  //   let textInput = this.state.textInput;
-  //   textInput.push(
-  //     <View style={{padding: 10}}>
-  //       <Dropdown
-  //         key={key}
-  //         label="Şehir"
-  //         onChangeText={value =>
-  //           this.setState({
-  //             sehir: sehir + ',' + value,
-  //           })
-  //         }
-  //         data={this.state.categoryList}
-  //       />
-  //     </View>,
-  //   );
 
-  //   this.setState({textInput});
-  // };
-  // removeTextInput = () => {
-  //   let textInput = this.state.textInput;
-  //   textInput.pop();
-  //   this.setState({textInput});
-  // };
   // onChangeDropdown(vals) {
   //   this.setState({dinamikIlce: []});
   //   const {data, dinamikIlce} = this.state;
@@ -174,13 +140,19 @@ export default class SehirIciRota extends Component {
               <View>
                 <Input
                   label="Mekanlar"
-                  onChangeText={mekanlar => this.setState({mekanlar})}
+                  placeholder="Mekan Adı"
+                  onChangeText={mekanAdi => this.setState({mekanAdi})}
+                />
+                <Input
+                  placeholder="Mekan Açıklama"
+                  onChangeText={mekanAciklama => this.setState({mekanAciklama})}
                 />
               </View>
             </View>
             {this.state.mekanInput.map(value => {
               return value;
             })}
+            {/* {this.state.dene} */}
             <TouchableOpacity
               style={styles.button}
               onPress={() => this.addMekanInput(this.state.mekanInput.length)}>

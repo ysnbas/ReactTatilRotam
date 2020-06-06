@@ -32,12 +32,14 @@ export default class RotaVeyaRehber extends Component {
             daha fazlasına ulaşabilirsiniz.
           </Text>
         </View>
-        <TouchableOpacity style={styles.RehberBtn}>
+        <TouchableOpacity
+          style={styles.RehberBtn}
+          onPress={() => this.props.navigation.navigate('Aktiviteler')}>
           <Text style={styles.Btn1}>Rehber</Text>
         </TouchableOpacity>
         <View style={styles.RehberYaziArea}>
           <Text style={styles.RehberYaziBtn}>
-            Rota kısmına tıklayarak oluşturacağınız rota ile artık yola
+            Rota kısmına tıklayarak rehberin oluşturduğu rota ile artık yola
             hazırsınız.
           </Text>
         </View>

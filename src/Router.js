@@ -23,6 +23,10 @@ import SehirIciRota from '../src/pages/SehirIciRota';
 import SehirIciRotaDuzenle from '../src/pages/SehirIciRotaDuzenle';
 import SehirIciGuncelle from '../src/pages/SehirIciGuncelle';
 import IkiRotaSirala from '../src/pages/IkiRotaSirala';
+import Rotalarim from '../src/pages/Rotalarim';
+import AktiviteEkle from '../src/pages/AktiviteEkle';
+import Aktiviteler from '../src/pages/Aktiviteler';
+import AktiviteDuzenle from '../src/pages/AktiviteDuzenle';
 
 import RotayaKatilVeyaRotalarim from './pages/RotayaKatilVeyaRotalarim';
 // import Ehue from '../src/pages/Ehue';
@@ -201,6 +205,34 @@ const AppNavigator = createStackNavigator(
     },
     IkiRotaSirala: {
       screen: IkiRotaSirala,
+      navigationOptions: {
+        headerShown: false,
+        headerLeft: null,
+      },
+    },
+    Rotalarim: {
+      screen: Rotalarim,
+      navigationOptions: {
+        headerShown: false,
+        headerLeft: null,
+      },
+    },
+    AktiviteEkle: {
+      screen: AktiviteEkle,
+      navigationOptions: {
+        headerShown: false,
+        headerLeft: null,
+      },
+    },
+    Aktiviteler: {
+      screen: Aktiviteler,
+      navigationOptions: {
+        headerShown: false,
+        headerLeft: null,
+      },
+    },
+    AktiviteDuzenle: {
+      screen: AktiviteDuzenle,
       navigationOptions: {
         headerShown: false,
         headerLeft: null,

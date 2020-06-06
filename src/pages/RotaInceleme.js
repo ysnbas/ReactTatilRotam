@@ -9,46 +9,45 @@ export default class RotaInceleme extends Component {
     super(props);
     this.state = {
       resData: null,
-      Basnoktasi: '',
-      Bitnoktasi: '',
       isEditable: false,
     };
   }
   _clickhandler() {
     this.setState({isEditable: !this.state.isEditable});
   }
+
   render() {
     const {navigation} = this.props;
-    let Baslangic = navigation.getParam('Baslangic', '');
-    let Bitis = navigation.getParam('Bitis', '');
-    let AraYerler = navigation.getParam('Rotalar', '');
+    let mekan = navigation.getParam('mekanlar', '');
+    let aciklama = navigation.getParam('aciklama', '');
+    let Baslangictarihi = navigation.getParam('baslangictarihi', '');
+    let Bitistarihi = navigation.getParam('bitistarihi', '');
     return (
       <View style={styles.container}>
         <View style={styles.LgnArea}>
-          <Input
-            label="Başlangıç Noktası"
-            data={this.state.categoryList}
-            onChangeText={Basnoktasi => this.setState({Basnoktasi})}
-            value={Baslangic}
-            editable={this.state.isEditable}
-          />
-          <Input
-            label="Başlangıç Noktası"
-            onChangeText={Bitnoktasi => this.setState({Bitnoktasi})}
-            data={this.state.categoryList}
-            value={Bitis}
-            editable={this.state.isEditable}
-          />
-          <Text style={{marginTop: 15}}>Ara Yerler</Text>
-          {AraYerler.map((item, key) => (
+          <Text>Mekanlar ve Açıklamalar Alt Alta Sıralanmıştır.</Text>
+
+          {mekan.map((item, key) => (
             <Input key={key} editable={this.state.isEditable}>
               {item}
             </Input>
           ))}
+          <Text>Açıklama</Text>
+          <Input value={aciklama} editable={this.state.isEditable} />
+          <Text>Başlangıç Tarihi</Text>
 
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.Btn1}>Katıl</Text>
-          </TouchableOpacity>
+          <Input
+            label="Başlangıç Tarihi"
+            value={Baslangictarihi}
+            editable={this.state.isEditable}
+          />
+          <Text>Bitiş Tarihi</Text>
+
+          <Input
+            label="Bitiş Tarihi"
+            value={Bitistarihi}
+            editable={this.state.isEditable}
+          />
         </View>
       </View>
     );

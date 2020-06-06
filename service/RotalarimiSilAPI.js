@@ -1,12 +1,12 @@
-import URL from './URL';
-
-const GetRotalarAPI = rota => {
+import axios from 'react-native-axios';
+const DeleteIlIlce = rota => {
   return new Promise((resolve, reject) => {
-    fetch(URL + '/mekanlar/' + rota + '', {
-      method: 'GET',
+    fetch('http://192.168.0.26:3000/rotayakatil/' + rota + '', {
+      method: 'DELETE',
     })
       .then(res => res.json())
       .then(res => {
+        console.log('->', res);
         resolve(res);
       })
       .catch(function() {
@@ -15,4 +15,4 @@ const GetRotalarAPI = rota => {
   });
 };
 
-module.exports = GetRotalarAPI;
+module.exports = DeleteIlIlce;

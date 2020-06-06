@@ -10,7 +10,9 @@ export default class RotaVeyaRehber extends Component {
           onPress={() => this.props.navigation.navigate('Rotalar')}>
           <Text style={styles.Btn1}>Rotalar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.RehberBtn}>
+        <TouchableOpacity
+          style={styles.RehberBtn}
+          onPress={() => this.props.navigation.navigate('Rotalarim')}>
           <Text style={styles.Btn1}>Rotalarım</Text>
         </TouchableOpacity>
         <TouchableOpacity

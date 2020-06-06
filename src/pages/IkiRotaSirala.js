@@ -8,21 +8,35 @@ export default class RotaSirala extends Component {
     super(props);
     const {navigation} = this.props;
     let AraYerler = navigation.getParam('mekanlar', '');
+    let mekanaciklama = navigation.getParam('mekanaciklama', '');
+
     this.state = {
       data: AraYerler.map((d, index) => ({
+        key: `item-${d}`,
+        label: d,
+      })),
+
+      dataAciklama: mekanaciklama.map((d, index) => ({
         key: `item-${d}`,
         label: d,
       })),
       BasTarihi: '',
       BitTarihi: '',
       aciklama: '',
-      rotanoktasi: '',
+      mekanAciklama: '',
+      mekanAdi: '',
     };
   }
-  Guncelle = async data => {
+  Guncelle = async (data, dataAciklama) => {
+    console.log('***', data);
     {
       const guncellenecekdeger = data.map((item, key) => item.label);
+      const guncellenecekdeger1 = dataAciklama.map((item, key) => item.label);
+      console.log('açıklama', guncellenecekdeger1);
+      console.log('mekan', guncellenecekdeger);
+
       const {navigation} = this.props;
+      let mekanId = navigation.getParam('mekanId', '');
       let BaslangicT = navigation.getParam('baslangictarihi', '');
       let BitisT = navigation.getParam('bitistarihi', '');
       let aciklama1 = navigation.getParam('aciklama', '');
@@ -31,14 +45,16 @@ export default class RotaSirala extends Component {
         BaslangicT +
         "', 'BitTarihi': '" +
         BitisT +
-        "', 'rotanoktasi': '" +
+        "', 'mekanAdi': '" +
         guncellenecekdeger +
+        "','mekanAciklama': '" +
+        guncellenecekdeger1 +
         "','aciklama': '" +
         aciklama1 +
         "'}";
       var body = eval('(' + toJSON + ')');
       try {
-        await IkinciAraRotaGuncelleAPI(body);
+        await IkinciAraRotaGuncelleAPI(body, mekanId);
       } catch (error) {
         alert(error);
       }
@@ -81,7 +97,9 @@ export default class RotaSirala extends Component {
         />
         <TouchableOpacity
           style={styles.button}
-          onPress={() => this.Guncelle(this.state.data)}>
+          onPress={() =>
+            this.Guncelle(this.state.data, this.state.dataAciklama)
+          }>
           <Text style={styles.Btn1}>Güncelle</Text>
         </TouchableOpacity>
       </View>

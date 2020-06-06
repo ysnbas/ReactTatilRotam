@@ -4,6 +4,7 @@ const RotalarSchema=require('../models/Rotalar');
 var MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
 
+
 router.post('/newRoute', function(req, res, next) {
     const rota=new RotalarSchema({  
         userID:req.body.userID,
@@ -41,7 +42,7 @@ router.delete('/deleterota',function(req,res,next){
     if(err) throw err;
     var dbo = db.db("tatilRotam");
     var myquery = { "_id":  ObjectID};
-    console.log(myquery)
+    console.log('myquery',myquery)
     dbo.collection("rotas").deleteOne(myquery, function(err, obj) {
       if (err) throw err;
       console.log("1 document deleted");

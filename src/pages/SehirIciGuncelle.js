@@ -9,6 +9,7 @@ import {
 import {Dropdown} from 'react-native-material-dropdown';
 import SehirIcıIlceGuncelle from '../../service/SehirIciIlceGuncelleAPI';
 import DatePicker from 'react-native-datepicker';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import * as data from '../../json/iller.json';
 import {Input} from 'react-native-elements';
@@ -20,14 +21,17 @@ export default class SehirIciGuncelle extends Component {
       resData: null,
       sehirler: '',
       mekanlar: '',
+      mekanAdi: '',
+      mekanAciklama: '',
       aciklama: '',
-      BasDate: '2020-01-01',
-      BitDate: '2020-01-01',
+      BasDate: '',
+      BitDate: '',
       categoryList: [],
       subCategoryList: [],
       // dinamikIlce: [],
       // data,
-      updatemekan: null,
+      updateMekan: null,
+      updateMekanAciklama: null,
     };
     this.getdata = this.getdata.bind(this);
   }
@@ -55,9 +59,13 @@ export default class SehirIciGuncelle extends Component {
   }
 
   guncelle = async () => {
+    let mekanID = this.props.navigation.getParam('mekanId', '');
+    console.log(mekanID);
     var toJSON =
-      "{'mekanlar': '" +
+      "{'mekanAdi': '" +
       this.state.updateMekan +
+      "','mekanAciklama': '" +
+      this.state.updateMekanAciklama +
       "', 'aciklama': '" +
       this.state.aciklama +
       "', 'BasDate': '" +
@@ -67,7 +75,7 @@ export default class SehirIciGuncelle extends Component {
       "'}";
     var body = eval('(' + toJSON + ')');
     try {
-      await SehirIcıIlceGuncelle(body);
+      await SehirIcıIlceGuncelle(body, mekanID);
     } catch (error) {
       alert(error);
     }
@@ -90,37 +98,53 @@ export default class SehirIciGuncelle extends Component {
     temp[key] = value;
     this.setState({updateMekan: temp});
   }
+  updateMekanAciklama(key, value) {
+    var temp = this.state.updateMekanAciklama;
+    temp[key] = value;
+    this.setState({updateMekanAciklama: temp});
+  }
   componentDidMount() {
     const {navigation} = this.props;
     let mekan = navigation.getParam('mekanlar', '');
+    let mekanaciklama = navigation.getParam('mekanaciklama', '');
+
     this.setState({updateMekan: mekan});
+    this.setState({updateMekanAciklama: mekanaciklama});
+    let mekanID = this.props.navigation.getParam('mekanId', '');
+    console.log(mekanID);
   }
   render() {
     const {navigation} = this.props;
     let mekan = navigation.getParam('mekanlar', '');
+    let mekanaciklama = navigation.getParam('mekanaciklama', '');
     let aciklama = navigation.getParam('aciklama', '');
+
     let Baslangictarihi = navigation.getParam('baslangictarihi', '');
     let Bitistarihi = navigation.getParam('bitistarihi', '');
-    const {sehirler} = this.state;
-    const {mekanlar} = this.state;
+
+    const {mekanAdi, mekanAciklama} = this.state;
+
     return (
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <View style={styles.LgnArea}>
-            <Text style={{fontSize: 15, textAlign: 'center'}}>
-              Hepsiniz Tekrar Seçiniz.
-            </Text>
             <Text style={{marginTop: 15}}>Mekanlar</Text>
+            {mekan.map((item, key) => (
+              <Input
+                key={key}
+                onChangeText={value => this.updateMekan(key, value)}>
+                {item}
+              </Input>
+            ))}
+            <Text style={{marginTop: 15}}>Mekan Açıklamaları</Text>
 
-            <View>
-              {mekan.map((item, key) => (
-                <Input
-                  key={key}
-                  onChangeText={value => this.updateMekan(key, value)}>
-                  {item}
-                </Input>
-              ))}
-            </View>
+            {mekanaciklama.map((item, key) => (
+              <Input
+                key={key}
+                onChangeText={value => this.updateMekanAciklama(key, value)}>
+                {item}
+              </Input>
+            ))}
             <Text style={{marginTop: 15}}>Açıklama</Text>
             <Input onChangeText={aciklama => this.setState({aciklama})}>
               {aciklama}

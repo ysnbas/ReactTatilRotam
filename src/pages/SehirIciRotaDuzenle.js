@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Text, View, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import GetIlIlceAPI from '../../service/GetIlIlceAPI';
 import DeleteIlIlceAPI from '../../service/DeleteIlIlceAPI';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import Input from '../components/input';
 
@@ -10,6 +11,7 @@ export default class App extends Component {
     super(props);
     this.state = {
       resData: null,
+      mekanID: '',
       isEditable: false,
     };
   }
@@ -18,15 +20,24 @@ export default class App extends Component {
   }
   sil = async () => {
     try {
-      await DeleteIlIlceAPI().then(vals => {
+      await DeleteIlIlceAPI(this.state.mekanID).then(vals => {
         console.log('->', vals);
       });
     } catch (error) {
       alert(error);
     }
   };
-  sirala = (mekanlar, aciklama, baslangictarihi, bitistarihi) => {
+  sirala = (
+    mekanId,
+    mekanlar,
+    mekanaciklama,
+    aciklama,
+    baslangictarihi,
+    bitistarihi,
+  ) => {
     this.props.navigation.navigate('IkiRotaSirala', {
+      mekanId,
+      mekanaciklama,
       mekanlar,
       aciklama,
       baslangictarihi,
@@ -34,13 +45,17 @@ export default class App extends Component {
     });
   };
   navigateRotaBilgileri = (
+    mekanId,
     mekanlar,
+    mekanaciklama,
     aciklama,
     baslangictarihi,
     bitistarihi,
   ) => {
     this.props.navigation.navigate('SehirIciGuncelle', {
+      mekanId,
       mekanlar,
+      mekanaciklama,
       aciklama,
       baslangictarihi,
       bitistarihi,
@@ -48,9 +63,13 @@ export default class App extends Component {
   };
 
   componentDidMount = async () => {
+    await AsyncStorage.getItem('id').then(userId => {
+      this.setState({userId});
+      console.log(this.state.userId);
+    });
     {
       try {
-        await GetIlIlceAPI().then(vals => {
+        await GetIlIlceAPI(this.state.userId).then(vals => {
           console.log('->', vals);
           this.setState({resData: vals});
         });
@@ -77,13 +96,29 @@ export default class App extends Component {
   };
 
   renderContactItem = (item, index) => {
+    var mekanlar = [];
+    var mekanAciklama1 = [];
+    var mekanId = [];
+
+    var mekanlar1 = [];
+
+    const IdAl = item.item._id;
+    mekanId.push(IdAl);
+    console.log(this.state.mekanID);
+    for (let index = 0; index < item.item.Mekanlar.length; index++) {
+      const element = item.item.Mekanlar[index].mekanAdi;
+      const element1 = item.item.Mekanlar[index].mekanAciklama;
+      const element3 = item.item.Mekanlar[index].mekanAdi;
+      mekanAciklama1.push(element1);
+      mekanlar.push(element);
+
+      mekanlar1.push(element3);
+    }
+
     return (
       <View style={styles.LgnArea}>
-        <Text>Mekanlar</Text>
-        <Input
-          editable={this.state.isEditable}
-          placeholder={item.item.Mekanlar[0]}
-        />
+        <Text>Açıklama</Text>
+
         <Input
           editable={this.state.isEditable}
           placeholder={item.item.Aciklama}
@@ -102,7 +137,9 @@ export default class App extends Component {
           style={styles.button}
           onPress={() =>
             this.navigateRotaBilgileri(
-              item.item.Mekanlar,
+              mekanId,
+              mekanlar,
+              mekanAciklama1,
               item.item.Aciklama,
               item.item.BaslangicTarihi,
               item.item.BitisTarihi,
@@ -114,7 +151,9 @@ export default class App extends Component {
           style={styles.button}
           onPress={() =>
             this.sirala(
-              item.item.Mekanlar,
+              mekanId,
+              mekanlar1,
+              mekanAciklama1,
               item.item.Aciklama,
               item.item.BaslangicTarihi,
               item.item.BitisTarihi,

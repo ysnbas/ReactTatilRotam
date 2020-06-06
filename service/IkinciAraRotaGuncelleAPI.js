@@ -1,13 +1,20 @@
+import URL from './URL';
+
 import axios from 'react-native-axios';
-const IkinciAraRotaGuncelleAPI = rota => {
-  const splitRotaNoktasi = rota.rotanoktasi.split(',');
+const IkinciAraRotaGuncelleAPI = (rota, rota1) => {
+  const mekanAdlari = rota.mekanAdi.split(',');
+  const mekanAciklamalari = rota.mekanAciklama.split(',');
   var Mekanlar = [];
-  for (let index = 0; index < splitRotaNoktasi.length; index++) {
-    Mekanlar.push(splitRotaNoktasi[index]);
+
+  for (let index = 0; index < mekanAdlari.length; index++) {
+    Mekanlar.push({
+      mekanAdi: mekanAdlari[index],
+      mekanAciklama: mekanAciklamalari[index],
+    });
   }
   return new Promise((resolve, reject) => {
     axios
-      .post('http://192.168.0.26:3000/mekanlar/SehirIciIlceguncelle', {
+      .put(URL + '/mekanlar/' + rota1, {
         BaslangicTarihi: rota.BasTarihi,
         BitisTarihi: rota.BitTarihi,
         Aciklama: rota.aciklama,

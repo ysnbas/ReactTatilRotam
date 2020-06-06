@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
-import GetRotalarAPI from '../../service/GetRotalarAPI';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+  Text,
+  TextInput,
+} from 'react-native';
+import AktiviteGetAPI from '../../service/AktiviteGetAPI';
 import Input from '../components/input';
-import DeleteRotalarAPI from '../../service/DeleteRotalarAPI';
-import AsyncStorage from '@react-native-community/async-storage';
-
-export default class App extends Component {
+import DeleteAktiviteAPI from '../../service/DeleteAktiviteAPI';
+export default class AktiviteDuzenle extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,37 +21,10 @@ export default class App extends Component {
   _clickhandler() {
     this.setState({isEditable: !this.state.isEditable});
   }
-  sil = async () => {
-    try {
-      await DeleteRotalarAPI().then(vals => {
-        console.log('->', vals);
-      });
-    } catch (error) {
-      alert(error);
-    }
-  };
-  navigateRotaBilgileri = (Baslangic, Bitis, Rotalar) => {
-    this.props.navigation.navigate('RotaGuncelleme', {
-      Baslangic,
-      Bitis,
-      Rotalar,
-    });
-  };
-  navigateRotaSirala = (Baslangic, Bitis, Rotalar) => {
-    this.props.navigation.navigate('RotaSirala', {
-      Baslangic,
-      Bitis,
-      Rotalar,
-    });
-  };
   componentDidMount = async () => {
-    await AsyncStorage.getItem('id').then(userId => {
-      this.setState({userId});
-      console.log(this.state.userId);
-    });
     {
       try {
-        await GetRotalarAPI().then(vals => {
+        await AktiviteGetAPI().then(vals => {
           console.log('->', vals);
           this.setState({resData: vals});
         });
@@ -55,7 +33,15 @@ export default class App extends Component {
       }
     }
   };
-
+  sil = async id => {
+    try {
+      await DeleteAktiviteAPI(id).then(vals => {
+        console.log('->', vals);
+      });
+    } catch (error) {
+      alert(error);
+    }
+  };
   _listEmptyComponent = () => {
     return (
       <View
@@ -66,51 +52,37 @@ export default class App extends Component {
           paddingHorizontal: 20,
         }}>
         <Text style={{fontSize: 15, textAlign: 'center'}}>
-          Rota bulunmamakta.
+          Aktivite bulunmamakta veya yükleniyor...
         </Text>
       </View>
     );
   };
-
   renderContactItem = (item, index) => {
     return (
       <View style={styles.LgnArea}>
-        <Text>Başlangıç Noktası</Text>
+        <Text>Gün</Text>
+
+        <Input editable={this.state.isEditable} placeholder={item.item.Gun} />
+        <Text>Hava Durumu</Text>
         <Input
           editable={this.state.isEditable}
-          placeholder={item.item.BaslangicNoktasi}
+          placeholder={item.item.HavaDurumu}
         />
-        <Text>Bitiş Noktası</Text>
-        <Input
-          editable={this.state.isEditable}
-          placeholder={item.item.BitisNoktasi}
-        />
+        <Text>Açıklama</Text>
+        <View style={styles.textAreaContainer}>
+          <TextInput
+            style={styles.textArea}
+            underlineColorAndroid="transparent"
+            editable={this.state.isEditable}
+            placeholder={item.item.Aciklama}
+            placeholderTextColor="grey"
+            numberOfLines={10}
+            multiline={true}
+          />
+        </View>
         <TouchableOpacity
           style={styles.button}
-          onPress={() =>
-            this.navigateRotaBilgileri(
-              item.item.BaslangicNoktasi,
-              item.item.BitisNoktasi,
-              item.item.Rotalar,
-            )
-          }>
-          <Text style={styles.Btn1}>Düzenle</Text>
-        </TouchableOpacity>
-        {/* <TouchableOpacity style={styles.button} onPress={this.RotaEkle}>
-          <Text style={styles.Btn1}>Rota Şehir Ekle</Text>
-        </TouchableOpacity> */}
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() =>
-            this.navigateRotaSirala(
-              item.item.BaslangicNoktasi,
-              item.item.BitisNoktasi,
-              item.item.Rotalar,
-            )
-          }>
-          <Text style={styles.Btn1}>Tekrar Sırala</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={this.sil}>
+          onPress={() => this.sil(item.item._id)}>
           <Text style={styles.Btn1}>Sil</Text>
         </TouchableOpacity>
       </View>
@@ -132,6 +104,14 @@ export default class App extends Component {
   }
 }
 const styles = StyleSheet.create({
+  textAreaContainer: {
+    borderWidth: 1,
+    padding: 5,
+  },
+  textArea: {
+    height: 150,
+    justifyContent: 'flex-start',
+  },
   container: {
     backgroundColor: '#FFEB3B',
     flex: 1,

@@ -1,8 +1,6 @@
-import URL from './URL';
-
-const GetRotalarAPI = rota => {
+const AktiviteGetAPI = rota => {
   return new Promise((resolve, reject) => {
-    fetch(URL + '/mekanlar/' + rota + '', {
+    fetch('http://192.168.0.26:3000/gunlukakt/aktiviteGetir', {
       method: 'GET',
     })
       .then(res => res.json())
@@ -15,4 +13,4 @@ const GetRotalarAPI = rota => {
   });
 };
 
-module.exports = GetRotalarAPI;
+module.exports = AktiviteGetAPI;

@@ -1,12 +1,13 @@
 import URL from './URL';
 
-const GetRotalarAPI = rota => {
+const getRotaAPI = rota => {
   return new Promise((resolve, reject) => {
-    fetch(URL + '/mekanlar/' + rota + '', {
+    fetch(URL + '/mekanlar/rotas', {
       method: 'GET',
     })
       .then(res => res.json())
       .then(res => {
+        console.log('->', res);
         resolve(res);
       })
       .catch(function() {
@@ -15,4 +16,4 @@ const GetRotalarAPI = rota => {
   });
 };
 
-module.exports = GetRotalarAPI;
+module.exports = getRotaAPI;

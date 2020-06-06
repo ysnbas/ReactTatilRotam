@@ -1,22 +1,19 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, TouchableOpacity, FlatList, Text} from 'react-native';
-import GetIlIlceAPI from '../../service/AyrintiliGetAPI';
-import KullaniciyeRotaEkleAPI from '../../service/KullaniciyeRotaEkleAPI';
-import Input from '../components/input';
+import {View, StyleSheet, FlatList, Text, TouchableOpacity} from 'react-native';
+import RotalarimGet from '../../service/RotalarimGetAPI';
+import RotalarimiSilAPI from '../../service/RotalarimiSilAPI';
+import RotalarimIDGetAPI from '../../service/RotalarimIDGetAPI';
+import {Input} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 
-export default class Rotalar extends Component {
+export default class Rotalarim extends Component {
   constructor(props) {
     super(props);
     this.state = {
       resData: null,
-      rotaId: '',
-      userId: '',
+      SilId: '',
       isEditable: false,
     };
-  }
-  _clickhandler() {
-    this.setState({isEditable: !this.state.isEditable});
   }
   componentDidMount = async () => {
     await AsyncStorage.getItem('id').then(userId => {
@@ -25,7 +22,7 @@ export default class Rotalar extends Component {
     });
     {
       try {
-        await GetIlIlceAPI().then(vals => {
+        await RotalarimGet(this.state.userId).then(vals => {
           console.log('->', vals);
           this.setState({resData: vals});
         });
@@ -33,46 +30,23 @@ export default class Rotalar extends Component {
         alert(error);
       }
     }
+    {
+      try {
+        await RotalarimIDGetAPI().then(vals => {
+          console.log('->', vals);
+          this.setState({resData: vals});
+        });
+      } catch (error) {}
+    }
   };
-  _listEmptyComponent = () => {
-    return (
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          paddingVertical: 50,
-          paddingHorizontal: 20,
-        }}>
-        <Text style={{fontSize: 15, textAlign: 'center'}}>
-          Rota bulunmamakta veya yükleniyor...
-        </Text>
-      </View>
-    );
-  };
-  navigateRotaBilgileri = (
-    mekanlar,
-    aciklama,
-    baslangictarihi,
-    bitistarihi,
-  ) => {
-    this.props.navigation.navigate('RotaInceleme', {
-      mekanlar,
-      aciklama,
-      baslangictarihi,
-      bitistarihi,
-    });
-  };
-  IdleriKayitEt = async deger => {
-    var toJSON =
-      "{'userId': '" + this.state.userId + "', 'rotaId': '" + deger + "'}";
-    console.log(toJSON);
-    var body = eval('(' + toJSON + ')');
+  sil = async silI => {
     try {
-      await KullaniciyeRotaEkleAPI(body);
+      await RotalarimiSilAPI(silI).then(vals => {
+        console.log('->', vals);
+      });
     } catch (error) {
       alert(error);
     }
-    Keyboard.dismiss();
   };
   renderContactItem = (item, index) => {
     var mekanlar = [];
@@ -82,11 +56,16 @@ export default class Rotalar extends Component {
       mekanlar.push(element, element1);
     }
     console.log('->' + mekanlar);
-
+    console.log('->=_' + item.item._id);
     return (
       <View style={styles.LgnArea}>
+        <Text>Mekanlar ve Açıklamalar Alt Alta Sıralanmıştır.</Text>
+        {mekanlar.map((item, key) => (
+          <Input key={key} editable={this.state.isEditable}>
+            {item}
+          </Input>
+        ))}
         <Text>Açıklama</Text>
-
         <View style={styles.textAreaContainer}>
           <TextInput
             style={styles.textArea}
@@ -98,31 +77,20 @@ export default class Rotalar extends Component {
             multiline={true}
           />
         </View>
-        <Text>Tarihler</Text>
+        <Text>Başlangıç Tarihi</Text>
         <Input
           editable={this.state.isEditable}
           placeholder={item.item.BaslangicTarihi}
         />
+        <Text>Bitiş Tarihi</Text>
         <Input
           editable={this.state.isEditable}
           placeholder={item.item.BitisTarihi}
         />
         <TouchableOpacity
-          style={styles.button}
-          onPress={() =>
-            this.navigateRotaBilgileri(
-              mekanlar,
-              item.item.Aciklama,
-              item.item.BaslangicTarihi,
-              item.item.BitisTarihi,
-            )
-          }>
-          <Text style={styles.Btn1}>İncele</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => this.IdleriKayitEt(item.item._id)}>
-          <Text style={styles.Btn1}>Katıl</Text>
+          style={styles.RehberBtn}
+          onPress={() => this.sil(item.item._id)}>
+          <Text style={styles.Btn1}>Kaldır</Text>
         </TouchableOpacity>
       </View>
     );
@@ -147,6 +115,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFEB3B',
     flex: 1,
     paddingVertical: 100,
+    justifyContent: 'center',
   },
   LgnArea: {
     backgroundColor: '#fff',
@@ -164,12 +133,12 @@ const styles = StyleSheet.create({
     },
     elevation: 4,
   },
-  button: {
-    paddingVertical: 9,
+  RehberBtn: {
+    paddingVertical: 10,
     paddingHorizontal: 5,
     borderRadius: 5,
+    width: '50%',
     alignItems: 'center',
-    marginBottom: 8,
     backgroundColor: '#720b98',
   },
   Btn1: {

@@ -4,21 +4,20 @@ import {
   StyleSheet,
   FlatList,
   Text,
-  TouchableOpacity,
   TextInput,
+  TouchableOpacity,
 } from 'react-native';
-import RotalarimGet from '../../service/RotalarimGetAPI';
-import RotalarimiSilAPI from '../../service/RotalarimiSilAPI';
-import RotalarimIDGetAPI from '../../service/RotalarimIDGetAPI';
-import {Input} from 'react-native-elements';
+import YorumlarGetAPI from '../../service/YorumGet2API';
+import YorumSilAPI from '../../service/YorumSilAPI';
+
+import Input from '../components/input';
 import AsyncStorage from '@react-native-community/async-storage';
 
-export default class Rotalarim extends Component {
+export default class Yorumlarim extends Component {
   constructor(props) {
     super(props);
     this.state = {
       resData: null,
-      SilId: '',
       isEditable: false,
     };
   }
@@ -29,7 +28,7 @@ export default class Rotalarim extends Component {
     });
     {
       try {
-        await RotalarimGet(this.state.userId).then(vals => {
+        await YorumlarGetAPI(this.state.userId).then(vals => {
           console.log('->', vals);
           this.setState({resData: vals});
         });
@@ -37,67 +36,57 @@ export default class Rotalarim extends Component {
         alert(error);
       }
     }
-    {
-      try {
-        await RotalarimIDGetAPI().then(vals => {
-          console.log('->', vals);
-          this.setState({resData: vals});
-        });
-      } catch (error) {}
-    }
   };
   sil = async silI => {
     try {
-      await RotalarimiSilAPI(silI).then(vals => {
+      await YorumSilAPI(silI).then(vals => {
         console.log('->', vals);
       });
     } catch (error) {
       alert(error);
     }
   };
+
+  _listEmptyComponent = () => {
+    return (
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingVertical: 50,
+          paddingHorizontal: 20,
+        }}>
+        <Text style={{fontSize: 15, textAlign: 'center'}}>
+          Yükleniyor... Eğer 5 saniyeden fazla sürerse yorum bulunmamaktadır.
+        </Text>
+      </View>
+    );
+  };
   renderContactItem = (item, index) => {
-    var mekanlar = [];
-    for (let index = 0; index < item.item.Mekanlar.length; index++) {
-      const element = item.item.Mekanlar[index].mekanAdi;
-      const element1 = item.item.Mekanlar[index].mekanAciklama;
-      mekanlar.push(element, element1);
-    }
-    console.log('->' + mekanlar);
-    console.log('->=_' + item.item._id);
     return (
       <View style={styles.LgnArea}>
-        <Text>Mekanlar ve Açıklamalar Alt Alta Sıralanmıştır.</Text>
-        {mekanlar.map((item, key) => (
-          <Input key={key} editable={this.state.isEditable}>
-            {item}
-          </Input>
-        ))}
-        <Text>Açıklama</Text>
+        <Text>Kullanıcı Adı</Text>
+        <Input
+          editable={this.state.isEditable}
+          placeholder={item.item.KullaniciAdi}
+        />
+
+        <Text>Yorum</Text>
         <View style={styles.textAreaContainer}>
           <TextInput
             style={styles.textArea}
             underlineColorAndroid="transparent"
             editable={this.state.isEditable}
-            placeholder={item.item.Aciklama}
+            placeholder={item.item.Yorum}
             placeholderTextColor="grey"
             numberOfLines={10}
             multiline={true}
           />
         </View>
-        <Text>Başlangıç Tarihi</Text>
-        <Input
-          editable={this.state.isEditable}
-          placeholder={item.item.BaslangicTarihi}
-        />
-        <Text>Bitiş Tarihi</Text>
-        <Input
-          editable={this.state.isEditable}
-          placeholder={item.item.BitisTarihi}
-        />
         <TouchableOpacity
           style={styles.RehberBtn}
           onPress={() => this.sil(item.item._id)}>
-          <Text style={styles.Btn1}>Kaldır</Text>
+          <Text style={styles.Btn1}>Sil</Text>
         </TouchableOpacity>
       </View>
     );

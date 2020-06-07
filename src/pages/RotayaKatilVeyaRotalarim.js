@@ -17,6 +17,11 @@ export default class RotaVeyaRehber extends Component {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.RehberBtn}
+          onPress={() => this.props.navigation.navigate('Yorumlarim')}>
+          <Text style={styles.Btn1}>Yorumlarım</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.RehberBtn}
           onPress={() => this.props.navigation.navigate('EnYakinMekan')}>
           <Text style={styles.Btn1}>Harita</Text>
         </TouchableOpacity>

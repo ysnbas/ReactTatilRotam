@@ -11,6 +11,7 @@ const routeRouter = require('./routes/rotalar');
 const mekanlarRouter=require('./routes/mekanlar');
 const rotayaKatilRouter=require('./routes/rotayakatil');
 const AktiviteRouter = require('./routes/gunlukakt')
+const YorumlarRouter = require('./routes/yorumlar')
 // const mekanRouter = require('./routes/mekanlar');
 const mongoose = require('mongoose');
 
@@ -41,6 +42,7 @@ app.use('/rotalar',routeRouter);
 app.use('/mekanlar',mekanlarRouter)
 app.use('/rotayakatil',rotayaKatilRouter)
 app.use('/gunlukakt',AktiviteRouter)
+app.use('/yorumlar',YorumlarRouter)
 // app.use('/mekanlar',mekanRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

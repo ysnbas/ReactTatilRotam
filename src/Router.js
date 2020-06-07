@@ -27,6 +27,10 @@ import Rotalarim from '../src/pages/Rotalarim';
 import AktiviteEkle from '../src/pages/AktiviteEkle';
 import Aktiviteler from '../src/pages/Aktiviteler';
 import AktiviteDuzenle from '../src/pages/AktiviteDuzenle';
+import YorumYap from '../src/pages/YorumYap';
+import Yorumlar from '../src/pages/Yorumlar';
+import Yorumlarim from '../src/pages/Yorumlarim';
+import KimlerKatilmis from '../src/pages/KimlerKatilmis';
 
 import RotayaKatilVeyaRotalarim from './pages/RotayaKatilVeyaRotalarim';
 // import Ehue from '../src/pages/Ehue';
@@ -233,6 +237,34 @@ const AppNavigator = createStackNavigator(
     },
     AktiviteDuzenle: {
       screen: AktiviteDuzenle,
+      navigationOptions: {
+        headerShown: false,
+        headerLeft: null,
+      },
+    },
+    YorumYap: {
+      screen: YorumYap,
+      navigationOptions: {
+        headerShown: false,
+        headerLeft: null,
+      },
+    },
+    Yorumlar: {
+      screen: Yorumlar,
+      navigationOptions: {
+        headerShown: false,
+        headerLeft: null,
+      },
+    },
+    Yorumlarim: {
+      screen: Yorumlarim,
+      navigationOptions: {
+        headerShown: false,
+        headerLeft: null,
+      },
+    },
+    KimlerKatilmis: {
+      screen: KimlerKatilmis,
       navigationOptions: {
         headerShown: false,
         headerLeft: null,

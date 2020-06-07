@@ -21,28 +21,29 @@ class LoginForm extends Component {
 
     this.submit = this.submit.bind(this);
   }
-  // componentDidMount() {
-  //   this.readStore();
-  // }
+  componentDidMount() {
+    this.readStore();
+  }
 
-  // readStore = async () => {
-  //   try {
-  //     const uname = await AsyncStorage.getItem('userName');
-  //     const password = await AsyncStorage.getItem('password');
-  //     if (uname !== null && password !== null) {
-  //       this.setState({uname: uname, password: password}, () => {
-  //         this.props.navigation.navigate('OlusturVeyaDuzenle');
-  //       });
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+  readStore = async () => {
+    try {
+      const uname = await AsyncStorage.getItem('userName');
+      const password = await AsyncStorage.getItem('password');
+      if (uname !== null && password !== null) {
+        this.setState({uname: uname, password: password}, () => {
+          this.props.navigation.navigate('OlusturVeyaDuzenle');
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   submit = async () => {
     const {uname, password} = this.state;
     try {
       await AsyncStorage.setItem('uname', this.state.uname);
+      console.log(this.state.uname);
     } catch (e) {
       console.log('AsyncStorage', error);
     }

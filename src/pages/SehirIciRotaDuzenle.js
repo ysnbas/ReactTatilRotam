@@ -44,6 +44,11 @@ export default class App extends Component {
       bitistarihi,
     });
   };
+  idsinial = mekanId => {
+    this.props.navigation.navigate('KimlerKatilmis', {
+      mekanId,
+    });
+  };
   navigateRotaBilgileri = (
     mekanId,
     mekanlar,
@@ -160,6 +165,12 @@ export default class App extends Component {
             )
           }>
           <Text style={styles.Btn1}>Sırala</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => this.idsinial(item.item._id)}>
+          <Text style={styles.Btn1}>Kimler Katılmış</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.button} onPress={this.sil}>

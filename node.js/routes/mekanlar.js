@@ -54,6 +54,7 @@ router.get("/:userID", (req, res) => {
           $unwind: "$rotalar",
       },  
   ]); 
+  
   promise
     .then(data => {
       res.json(data);
@@ -62,7 +63,6 @@ router.get("/:userID", (req, res) => {
       res.json(err);
     });
 });
-
   // router.post('/:rota_id', function(req, res, next) {
   //   var rota = req.params.rota_id
   //   console.log(rota)

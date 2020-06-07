@@ -47,6 +47,54 @@ router.get("/:KullaniciID", (req, res) => {
         }
       }
   ]); 
+  
+  promise
+    .then(data => {
+      res.json(data);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
+router.get("/kimlerkatilmis/:RotaID", (req, res) => {
+  const promise = RotayaKatilSchema.aggregate([
+      {
+          $lookup: {
+              from: "mekans",
+              localField: "RotaID",
+              foreignField: "_id",
+              as: "rotalar"
+          }
+      },
+      {
+        $lookup: {
+            from: "isims",
+            localField: "KullaniciID",
+            foreignField: "_id",
+            as: "isimler"
+        }
+    },
+      {
+          $unwind: "$rotalar",
+          $unwind: "$isimler",
+      },  
+      {
+        $match: {
+          'RotaID': mongoose.Types.ObjectId(req.params.RotaID)
+      }
+      },
+      // {
+      //   $count: "myCount" 
+      // },
+      {
+        $project: {
+          isim:"$isimler.isim",
+          soyisim: "$isimler.soyisim",
+          kullaniciAdi: "$isimler.kullaniciAdi",
+        }
+      }
+  ]); 
+  
   promise
     .then(data => {
       res.json(data);

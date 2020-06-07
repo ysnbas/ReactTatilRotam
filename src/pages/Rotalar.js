@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, TouchableOpacity, FlatList, Text} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+  Text,
+  TextInput,
+} from 'react-native';
 import GetIlIlceAPI from '../../service/AyrintiliGetAPI';
 import KullaniciyeRotaEkleAPI from '../../service/KullaniciyeRotaEkleAPI';
 import Input from '../components/input';
@@ -50,16 +57,23 @@ export default class Rotalar extends Component {
     );
   };
   navigateRotaBilgileri = (
+    rotaid,
     mekanlar,
     aciklama,
     baslangictarihi,
     bitistarihi,
   ) => {
     this.props.navigation.navigate('RotaInceleme', {
+      rotaid,
       mekanlar,
       aciklama,
       baslangictarihi,
       bitistarihi,
+    });
+  };
+  rotaidsi = rotaid => {
+    this.props.navigation.navigate('Yorumlar', {
+      rotaid,
     });
   };
   IdleriKayitEt = async deger => {
@@ -111,6 +125,7 @@ export default class Rotalar extends Component {
           style={styles.button}
           onPress={() =>
             this.navigateRotaBilgileri(
+              item.item._id,
               mekanlar,
               item.item.Aciklama,
               item.item.BaslangicTarihi,
@@ -123,6 +138,11 @@ export default class Rotalar extends Component {
           style={styles.button}
           onPress={() => this.IdleriKayitEt(item.item._id)}>
           <Text style={styles.Btn1}>Katıl</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => this.rotaidsi(item.item._id)}>
+          <Text style={styles.Btn1}>Yorumlar</Text>
         </TouchableOpacity>
       </View>
     );

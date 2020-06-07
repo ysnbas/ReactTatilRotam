@@ -16,8 +16,15 @@ export default class RotaInceleme extends Component {
     this.setState({isEditable: !this.state.isEditable});
   }
 
+  go = rotaid => {
+    this.props.navigation.navigate('YorumYap', {
+      rotaid,
+    });
+  };
   render() {
     const {navigation} = this.props;
+
+    let id = navigation.getParam('rotaid', '');
     let mekan = navigation.getParam('mekanlar', '');
     let aciklama = navigation.getParam('aciklama', '');
     let Baslangictarihi = navigation.getParam('baslangictarihi', '');
@@ -48,6 +55,9 @@ export default class RotaInceleme extends Component {
             value={Bitistarihi}
             editable={this.state.isEditable}
           />
+          <TouchableOpacity style={styles.button} onPress={() => this.go(id)}>
+            <Text style={styles.Btn1}>Yorum Yap</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -74,6 +84,19 @@ const styles = StyleSheet.create({
       height: 10,
     },
     elevation: 4,
+  },
+  button: {
+    paddingVertical: 9,
+    paddingHorizontal: 5,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginBottom: 8,
+    backgroundColor: '#720b98',
+  },
+  Btn1: {
+    color: '#fff',
+    fontSize: 15,
+    letterSpacing: 1,
   },
   button: {
     paddingVertical: 9,
